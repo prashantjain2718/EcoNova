@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - EcoNova</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <h1>EcoNova</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="register.html">Register</a></li>
+                <li><a href="login.html" class="active">Login</a></li>
+                <li><a href="index.html#about">About</a></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="form-container">
+            <h2>Login to Your Account</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                    <div class="error-message"></div>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                    <div class="error-message"></div>
+                </div>
+                <button type="submit" class="form-submit">Login</button>
+                <div class="form-footer">
+                    <p>Don't have an account? <a href="register.html">Register here</a></p>
+                </div>
+                <div class="demo-credentials">
+                    <h3>Demo Credentials</h3>
+                    <div class="demo-account">
+                        <h4>Student Account</h4>
+                        <p><strong>Email:</strong> student@econova.edu</p>
+                        <p><strong>Password:</strong> student123</p>
+                    </div>
+                    <div class="demo-account">
+                        <h4>Teacher Account</h4>
+                        <p><strong>Email:</strong> teacher@econova.edu</p>
+                        <p><strong>Password:</strong> teacher123</p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <h2>EcoNova</h2>
+                <p>Gamified Environmental Education</p>
+            </div>
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="register.html">Register</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h3>Contact Us</h3>
+                <p>Email: info@econova.edu</p>
+                <p>Phone: (123) 456-7890</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 EcoNova. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <style>
+        .demo-credentials {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-radius: 8px;
+            border-left: 4px solid #4CAF50;
+        }
+        
+        .demo-credentials h3 {
+            margin-bottom: 15px;
+            color: #2E7D32;
+            font-size: 1.1rem;
+        }
+        
+        .demo-account {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #ddd;
+        }
+        
+        .demo-account:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .demo-account h4 {
+            margin-bottom: 5px;
+            color: #333;
+            font-size: 1rem;
+        }
+        
+        .demo-account p {
+            margin: 5px 0;
+            font-size: 0.9rem;
+        }
+    </style>
+
+    <script src="js/script.js"></script>
+    <script>
+        // Add demo users to localStorage when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            // Create student demo account
+            const studentData = {
+                name: "Demo Student",
+                email: "student@econova.edu",
+                password: "student123",
+                role: "Student"
+            };
+            localStorage.setItem('econova_user_' + studentData.email, JSON.stringify(studentData));
+            
+            // Create teacher demo account
+            const teacherData = {
+                name: "Demo Teacher",
+                email: "teacher@econova.edu",
+                password: "teacher123",
+                role: "Teacher"
+            };
+            localStorage.setItem('econova_user_' + teacherData.email, JSON.stringify(teacherData));
+            
+            // Add to registered users list
+            localStorage.setItem('econova_registered_users', 
+                localStorage.getItem('econova_registered_users') ? 
+                localStorage.getItem('econova_registered_users') + ',student@econova.edu,teacher@econova.edu' : 
+                'student@econova.edu,teacher@econova.edu'
+            );
+            
+            // Initialize student progress
+            const studentProgress = {
+                completedLevels: [1, 2],
+                currentLevel: 3,
+                totalPoints: 120,
+                badges: ["Soil Master", "Plant Expert"]
+            };
+            localStorage.setItem('econova_progress_student@econova.edu', JSON.stringify(studentProgress));
+        });
+    </script>
+</body>
+</html>

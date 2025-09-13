@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - EcoNova</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>EcoNova</h2>
+                <p>Student Dashboard</p>
+            </div>
+            <div class="sidebar-menu">
+                <h3>Navigation</h3>
+                <ul>
+                    <li><a href="student-dashboard.html" class="active"><i class="fas fa-home"></i> Dashboard</a></li>
+                    <li><a href="levels.html"><i class="fas fa-layer-group"></i> Game Levels</a></li>
+                    <li><a href="#"><i class="fas fa-trophy"></i> Achievements</a></li>
+                    <li><a href="#"><i class="fas fa-chart-line"></i> Progress</a></li>
+                    <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+                    <li><a href="index.html" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <div class="main-content">
+            <div class="dashboard-header">
+                <div class="welcome-message">
+                    <h2>Welcome, Student!</h2>
+                    <p>Continue your environmental learning journey</p>
+                </div>
+            </div>
+
+            <div class="dashboard-cards">
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h3>Your Progress</h3>
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="dashboard-card-content">
+                        <div class="progress-container">
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 10%"></div>
+                            </div>
+                            <div class="progress-info">
+                                <span>Level 3</span>
+                                <span>2/20 levels completed</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h3>Points Earned</h3>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="dashboard-card-content">
+                        <div class="number">120</div>
+                        <div class="label">Total Points</div>
+                    </div>
+                </div>
+
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h3>Badges</h3>
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <div class="dashboard-card-content">
+                        <div class="number">2</div>
+                        <div class="label">Badges Earned</div>
+                    </div>
+                </div>
+            </div>
+
+            <section class="games-section">
+                <div class="section-header">
+                    <h2>Available Games</h2>
+                    <a href="levels.html" class="view-all">View All</a>
+                </div>
+                <div class="games-grid">
+                    <div class="game-card">
+                        <div class="game-card-image">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                        <div class="game-card-content">
+                            <h3>Soil Basics</h3>
+                            <p>Learn about different soil types and their properties</p>
+                            <a href="game.html?level=1" class="game-card-button">Play Now</a>
+                        </div>
+                    </div>
+                    
+                    <div class="game-card">
+                        <div class="game-card-image">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <div class="game-card-content">
+                            <h3>Plants 101</h3>
+                            <p>Discover the basics of plant growth and photosynthesis</p>
+                            <a href="game.html?level=2" class="game-card-button">Play Now</a>
+                        </div>
+                    </div>
+                    
+                    <div class="game-card">
+                        <div class="game-card-image">
+                            <i class="fas fa-wind"></i>
+                        </div>
+                        <div class="game-card-content">
+                            <h3>Air and Atmosphere</h3>
+                            <p>Explore the composition of air and the oxygen cycle</p>
+                            <a href="game.html?level=3" class="game-card-button">Play Now</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="leaderboard">
+                <h3>Leaderboard</h3>
+                <table class="leaderboard-table">
+                    <thead>
+                        <tr>
+                            <th class="rank">Rank</th>
+                            <th>Student</th>
+                            <th>Level</th>
+                            <th class="points">Points</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="rank">1</td>
+                            <td>
+                                <div class="student">
+                                    <div class="student-avatar">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <span>Alex Johnson</span>
+                                </div>
+                            </td>
+                            <td>Level 8</td>
+                            <td class="points">450</td>
+                        </tr>
+                        <tr>
+                            <td class="rank">2</td>
+                            <td>
+                                <div class="student">
+                                    <div class="student-avatar">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <span>Demo Student</span>
+                                </div>
+                            </td>
+                            <td>Level 3</td>
+                            <td class="points">120</td>
+                        </tr>
+                        <tr>
+                            <td class="rank">3</td>
+                            <td>
+                                <div class="student">
+                                    <div class="student-avatar">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <span>Jamie Smith</span>
+                                </div>
+                            </td>
+                            <td>Level 2</td>
+                            <td class="points">90</td>
+                        </tr>
+                        <tr>
+                            <td class="rank">4</td>
+                            <td>
+                                <div class="student">
+                                    <div class="student-avatar">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <span>Taylor Wilson</span>
+                                </div>
+                            </td>
+                            <td>Level 1</td>
+                            <td class="points">50</td>
+                        </tr>
+                        <tr>
+                            <td class="rank">5</td>
+                            <td>
+                                <div class="student">
+                                    <div class="student-avatar">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <span>Jordan Lee</span>
+                                </div>
+                            </td>
+                            <td>Level 1</td>
+                            <td class="points">30</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

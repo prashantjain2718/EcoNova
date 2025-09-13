@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Levels - EcoNova</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .levels-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        
+        .level-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+        
+        .level-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        .level-image {
+            height: 140px;
+            background-color: #e8f5e9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2e7d32;
+            font-size: 3rem;
+        }
+        
+        .level-content {
+            padding: 15px;
+        }
+        
+        .level-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2e7d32;
+            margin-bottom: 5px;
+        }
+        
+        .level-topics {
+            font-size: 0.9rem;
+            color: #757575;
+            margin-bottom: 10px;
+        }
+        
+        .level-activity {
+            font-size: 0.85rem;
+            color: #424242;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .level-activity i {
+            color: #4caf50;
+        }
+        
+        .level-status {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .status-badge {
+            font-size: 0.8rem;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-weight: 500;
+        }
+        
+        .status-locked {
+            background-color: #f5f5f5;
+            color: #9e9e9e;
+        }
+        
+        .status-available {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+        
+        .status-completed {
+            background-color: #2e7d32;
+            color: white;
+        }
+        
+        .level-button {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        
+        .play-button {
+            background-color: #4caf50;
+            color: white;
+        }
+        
+        .play-button:hover {
+            background-color: #388e3c;
+        }
+        
+        .locked-button {
+            background-color: #e0e0e0;
+            color: #9e9e9e;
+            cursor: not-allowed;
+        }
+        
+        .replay-button {
+            background-color: #2196f3;
+            color: white;
+        }
+        
+        .replay-button:hover {
+            background-color: #1976d2;
+        }
+        
+        .level-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #ff9800;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .filter-bar {
+            background-color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .filter-label {
+            font-size: 0.9rem;
+            color: #757575;
+        }
+        
+        .filter-select {
+            padding: 6px 10px;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            color: #424242;
+            background-color: #f5f5f5;
+            cursor: pointer;
+        }
+        
+        .search-input {
+            padding: 6px 10px;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            color: #424242;
+            width: 200px;
+        }
+        
+        .progress-overview {
+            background-color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .progress-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #424242;
+        }
+        
+        .progress-stats {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .progress-stat {
+            font-size: 0.9rem;
+            color: #757575;
+        }
+        
+        .progress-stat span {
+            font-weight: 600;
+            color: #2e7d32;
+        }
+        
+        .progress-bar-container {
+            height: 8px;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .progress-bar-fill {
+            height: 100%;
+            background-color: #4caf50;
+            width: 15%;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>EcoNova</h2>
+                <p>Environmental Learning</p>
+            </div>
+            <div class="sidebar-menu">
+                <h3>Navigation</h3>
+                <ul>
+                    <li><a href="student-dashboard.html"><i class="fas fa-home"></i> Dashboard</a></li>
+                    <li><a href="levels.html" class="active"><i class="fas fa-layer-group"></i> Game Levels</a></li>
+                    <li><a href="#"><i class="fas fa-trophy"></i> Achievements</a></li>
+                    <li><a href="#"><i class="fas fa-chart-line"></i> Progress</a></li>
+                    <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+                    <li><a href="index.html" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <div class="main-content">
+            <div class="dashboard-header">
+                <div class="welcome-message">
+                    <h2>Game Levels</h2>
+                    <p>Select a level to start learning about the environment</p>
+                </div>
+            </div>
+
+            <div class="progress-overview">
+                <div class="progress-header">
+                    <div class="progress-title">Your Progress</div>
+                    <div class="progress-stats">
+                        <div class="progress-stat">Completed: <span>3</span>/20</div>
+                        <div class="progress-stat">Overall: <span>15%</span></div>
+                    </div>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar-fill"></div>
+                </div>
+            </div>
+
+            <div class="filter-bar">
+                <div class="filter-group">
+                    <div class="filter-label">Filter by:</div>
+                    <select class="filter-select" id="status-filter">
+                        <option value="all">All Levels</option>
+                        <option value="available">Available</option>
+                        <option value="completed">Completed</option>
+                        <option value="locked">Locked</option>
+                    </select>
+                    <select class="filter-select" id="topic-filter">
+                        <option value="all">All Topics</option>
+                        <option value="soil">Soil</option>
+                        <option value="plants">Plants</option>
+                        <option value="air">Air</option>
+                        <option value="water">Water</option>
+                        <option value="energy">Energy</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <input type="text" class="search-input" placeholder="Search levels..." id="level-search">
+                </div>
+            </div>
+
+            <div class="levels-container" id="levels-container">
+                <!-- Level cards will be dynamically generated -->
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script>
+        // Level data
+        const levels = [
+            {
+                id: 1,
+                title: "Level 1: Soil Basics",
+                topics: ["Soil types", "Air", "Water cycle"],
+                activityType: "Drag-and-drop labeling, quiz",
+                status: "completed",
+                icon: "fas fa-seedling"
+            },
+            {
+                id: 2,
+                title: "Level 2: Plants 101",
+                topics: ["Seed germination", "Photosynthesis basics"],
+                activityType: "Multiple-choice quiz",
+                status: "completed",
+                icon: "fas fa-leaf"
+            },
+            {
+                id: 3,
+                title: "Level 3: Air and Atmosphere",
+                topics: ["Air composition", "Oxygen cycle"],
+                activityType: "Matching game",
+                status: "available",
+                icon: "fas fa-wind"
+            },
+            {
+                id: 4,
+                title: "Level 4: Food Chains",
+                topics: ["Producers", "Consumers", "Decomposers"],
+                activityType: "Scenario-based challenge",
+                status: "available",
+                icon: "fas fa-link"
+            },
+            {
+                id: 5,
+                title: "Level 5: Water Resources",
+                topics: ["Freshwater", "Groundwater", "Oceans"],
+                activityType: "Sorting and categorization",
+                status: "available",
+                icon: "fas fa-water"
+            },
+            {
+                id: 6,
+                title: "Level 6: Photosynthesis Advanced",
+                topics: ["Chlorophyll", "Light reactions"],
+                activityType: "Timed quiz",
+                status: "available",
+                icon: "fas fa-sun"
+            },
+            {
+                id: 7,
+                title: "Level 7: Biodiversity Basics",
+                topics: ["Species diversity", "Habitats"],
+                activityType: "Puzzle game",
+                status: "locked",
+                icon: "fas fa-paw"
+            },
+            {
+                id: 8,
+                title: "Level 8: Human Impact",
+                topics: ["Deforestation", "Pollution"],
+                activityType: "Cause-effect game",
+                status: "locked",
+                icon: "fas fa-industry"
+            },
+            {
+                id: 9,
+                title: "Level 9: Renewable Energy",
+                topics: ["Solar", "Wind", "Hydro"],
+                activityType: "Simulation mini-game",
+                status: "locked",
+                icon: "fas fa-solar-panel"
+            },
+            {
+                id: 10,
+                title: "Level 10: Non-renewable Energy",
+                topics: ["Fossil fuels", "Mining effects"],
+                activityType: "Quiz + infographic",
+                status: "locked",
+                icon: "fas fa-oil-can"
+            },
+            {
+                id: 11,
+                title: "Level 11: Waste Management",
+                topics: ["Reduce", "Reuse", "Recycle"],
+                activityType: "Sorting game",
+                status: "locked",
+                icon: "fas fa-recycle"
+            },
+            {
+                id: 12,
+                title: "Level 12: Climate Change Basics",
+                topics: ["Greenhouse effect", "Global warming"],
+                activityType: "Timeline ordering",
+                status: "locked",
+                icon: "fas fa-temperature-high"
+            },
+            {
+                id: 13,
+                title: "Level 13: Carbon Cycle",
+                topics: ["Carbon sinks", "Carbon emissions"],
+                activityType: "Simulation",
+                status: "locked",
+                icon: "fas fa-atom"
+            },
+            {
+                id: 14,
+                title: "Level 14: Ecosystem Interactions",
+                topics: ["Predation", "Symbiosis"],
+                activityType: "Role-play game",
+                status: "locked",
+                icon: "fas fa-network-wired"
+            },
+            {
+                id: 15,
+                title: "Level 15: Oceans & Marine Life",
+                topics: ["Coral reefs", "Ocean acidification"],
+                activityType: "Exploration game",
+                status: "locked",
+                icon: "fas fa-fish"
+            },
+            {
+                id: 16,
+                title: "Level 16: Sustainable Living",
+                topics: ["Eco-friendly lifestyle", "Energy efficiency"],
+                activityType: "Scenario-based decision making",
+                status: "locked",
+                icon: "fas fa-home"
+            },
+            {
+                id: 17,
+                title: "Level 17: Agriculture & Environment",
+                topics: ["Organic farming", "Pesticides"],
+                activityType: "Case study quiz",
+                status: "locked",
+                icon: "fas fa-tractor"
+            },
+            {
+                id: 18,
+                title: "Level 18: Urban Ecology",
+                topics: ["Green buildings", "Urban forests"],
+                activityType: "Simulation",
+                status: "locked",
+                icon: "fas fa-city"
+            },
+            {
+                id: 19,
+                title: "Level 19: Water Pollution",
+                topics: ["Industrial waste", "Eutrophication"],
+                activityType: "Cause-effect mapping",
+                status: "locked",
+                icon: "fas fa-tint-slash"
+            },
+            {
+                id: 20,
+                title: "Level 20: Air Pollution",
+                topics: ["Smog", "Particulate matter"],
+                activityType: "Interactive quiz",
+                status: "locked",
+                icon: "fas fa-smog"
+            },
+            {
+                id: 21,
+                title: "Level 21: Conservation Methods",
+                topics: ["Protected areas", "Species recovery"],
+                activityType: "Case study analysis",
+                status: "locked",
+                icon: "fas fa-shield-alt"
+            },
+            {
+                id: 22,
+                title: "Level 22: Sustainable Agriculture",
+                topics: ["Permaculture", "Crop rotation"],
+                activityType: "Simulation game",
+                status: "locked",
+                icon: "fas fa-seedling"
+            },
+            {
+                id: 23,
+                title: "Level 23: Green Technology",
+                topics: ["Eco-innovation", "Sustainable design"],
+                activityType: "Project challenge",
+                status: "locked",
+                icon: "fas fa-laptop"
+            }
+        ];
+
+        // DOM Elements
+        const levelsContainer = document.getElementById('levels-container');
+        const statusFilter = document.getElementById('status-filter');
+        const topicFilter = document.getElementById('topic-filter');
+        const levelSearch = document.getElementById('level-search');
+
+        // Initialize the levels page
+        function initLevelsPage() {
+            renderLevels(levels);
+            setupEventListeners();
+        }
+
+        // Render level cards
+        function renderLevels(levelsToRender) {
+            levelsContainer.innerHTML = '';
+            
+            levelsToRender.forEach(level => {
+                const levelCard = document.createElement('div');
+                levelCard.classList.add('level-card');
+                
+                // Create level badge
+                const levelBadge = document.createElement('div');
+                levelBadge.classList.add('level-badge');
+                levelBadge.textContent = level.id;
+                
+                // Create level content
+                levelCard.innerHTML = `
+                    <div class="level-image">
+                        <i class="${level.icon}"></i>
+                    </div>
+                    <div class="level-content">
+                        <div class="level-title">${level.title}</div>
+                        <div class="level-topics">${level.topics.join(', ')}</div>
+                        <div class="level-activity">
+                            <i class="fas fa-gamepad"></i>
+                            ${level.activityType}
+                        </div>
+                        <div class="level-status">
+                            <div class="status-badge status-${level.status}">
+                                ${level.status.charAt(0).toUpperCase() + level.status.slice(1)}
+                            </div>
+                            ${getButtonForStatus(level)}
+                        </div>
+                    </div>
+                `;
+                
+                levelCard.appendChild(levelBadge);
+                levelsContainer.appendChild(levelCard);
+            });
+        }
+
+        // Get appropriate button based on level status
+        function getButtonForStatus(level) {
+            if (level.status === 'completed') {
+                return `<button class="level-button replay-button" data-level="${level.id}">Replay</button>`;
+            } else if (level.status === 'available') {
+                return `<button class="level-button play-button" data-level="${level.id}">Play</button>`;
+            } else {
+                return `<button class="level-button locked-button" disabled>Locked</button>`;
+            }
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Status filter
+            statusFilter.addEventListener('change', filterLevels);
+            
+            // Topic filter
+            topicFilter.addEventListener('change', filterLevels);
+            
+            // Search input
+            levelSearch.addEventListener('input', filterLevels);
+            
+            // Level buttons
+            document.addEventListener('click', (e) => {
+                if (e.target.classList.contains('play-button') || e.target.classList.contains('replay-button')) {
+                    const levelId = e.target.getAttribute('data-level');
+                    playLevel(levelId);
+                }
+            });
+        }
+
+        // Filter levels based on selected filters and search
+        function filterLevels() {
+            const statusValue = statusFilter.value;
+            const topicValue = topicFilter.value;
+            const searchValue = levelSearch.value.toLowerCase();
+            
+            const filteredLevels = levels.filter(level => {
+                // Status filter
+                const statusMatch = statusValue === 'all' || level.status === statusValue;
+                
+                // Topic filter
+                const topicMatch = topicValue === 'all' || level.topics.some(topic => 
+                    topic.toLowerCase().includes(topicValue.toLowerCase())
+                );
+                
+                // Search filter
+                const searchMatch = level.title.toLowerCase().includes(searchValue) || 
+                                   level.topics.some(topic => topic.toLowerCase().includes(searchValue)) ||
+                                   level.activityType.toLowerCase().includes(searchValue);
+                
+                return statusMatch && topicMatch && searchMatch;
+            });
+            
+            renderLevels(filteredLevels);
+        }
+
+        // Play level function
+        function playLevel(levelId) {
+            // Redirect to game page with level ID
+            window.location.href = `game.html?level=${levelId}`;
+        }
+
+        // Initialize the page when DOM is loaded
+        window.addEventListener('DOMContentLoaded', initLevelsPage);
+    </script>
+</body>
+</html>
