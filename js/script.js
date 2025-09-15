@@ -15,6 +15,7 @@ const validateForm = (formId) => {
     if (!form) return;
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/;
     let isValid = true;
 
     // Reset previous errors
@@ -44,8 +45,23 @@ const validateForm = (formId) => {
             errorMessage.style.display = 'block';
             input.parentElement.classList.add('error');
             isValid = false;
-        } else if (input.type === 'password' && input.value.length < 6 && input.value.trim()) {
-            errorMessage.textContent = 'Password must be at least 6 characters';
+        } else if (input.type === 'password' && input.id === 'password' && !passwordRegex.test(input.value) && input.value.trim()) {
+            errorMessage.textContent = 'Password must be at least 8 characters with letters and numbers';
+            errorMessage.style.display = 'block';
+            input.parentElement.classList.add('error');
+            isValid = false;
+        } else if (input.id === 'confirm-password' && input.value !== document.getElementById('password').value) {
+            errorMessage.textContent = 'Passwords do not match';
+            errorMessage.style.display = 'block';
+            input.parentElement.classList.add('error');
+            isValid = false;
+        } else if (input.id === 'name' && input.value.trim().length < 3) {
+            errorMessage.textContent = 'Name must be at least 3 characters';
+            errorMessage.style.display = 'block';
+            input.parentElement.classList.add('error');
+            isValid = false;
+        } else if (input.id === 'role' && input.value === '') {
+            errorMessage.textContent = 'Please select a role';
             errorMessage.style.display = 'block';
             input.parentElement.classList.add('error');
             isValid = false;
@@ -53,6 +69,65 @@ const validateForm = (formId) => {
     });
 
     return isValid;
+};
+
+// Real-time validation
+const setupRealTimeValidation = (formId) => {
+    const form = document.getElementById(formId);
+    if (!form) return;
+
+    const inputs = form.querySelectorAll('input, select');
+    inputs.forEach(input => {
+        input.addEventListener('blur', () => {
+            validateInput(input);
+        });
+        
+        input.addEventListener('input', () => {
+            // Clear error when user starts typing
+            const errorMessage = input.nextElementSibling;
+            if (errorMessage && errorMessage.classList.contains('error-message')) {
+                errorMessage.style.display = 'none';
+                input.parentElement.classList.remove('error');
+            }
+        });
+    });
+};
+
+const validateInput = (input) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/;
+    const errorMessage = input.nextElementSibling;
+    
+    if (!errorMessage || !errorMessage.classList.contains('error-message')) return;
+    
+    if (input.required && !input.value.trim()) {
+        errorMessage.textContent = 'This field is required';
+        errorMessage.style.display = 'block';
+        input.parentElement.classList.add('error');
+    } else if (input.type === 'email' && !emailRegex.test(input.value) && input.value.trim()) {
+        errorMessage.textContent = 'Please enter a valid email address';
+        errorMessage.style.display = 'block';
+        input.parentElement.classList.add('error');
+    } else if (input.type === 'password' && input.id === 'password' && !passwordRegex.test(input.value) && input.value.trim()) {
+        errorMessage.textContent = 'Password must be at least 8 characters with letters and numbers';
+        errorMessage.style.display = 'block';
+        input.parentElement.classList.add('error');
+    } else if (input.id === 'confirm-password' && input.value !== document.getElementById('password').value) {
+        errorMessage.textContent = 'Passwords do not match';
+        errorMessage.style.display = 'block';
+        input.parentElement.classList.add('error');
+    } else if (input.id === 'name' && input.value.trim().length < 3) {
+        errorMessage.textContent = 'Name must be at least 3 characters';
+        errorMessage.style.display = 'block';
+        input.parentElement.classList.add('error');
+    } else if (input.id === 'role' && input.value === '') {
+        errorMessage.textContent = 'Please select a role';
+        errorMessage.style.display = 'block';
+        input.parentElement.classList.add('error');
+    } else {
+        errorMessage.style.display = 'none';
+        input.parentElement.classList.remove('error');
+    }
 };
 
 // Handle form submission
@@ -879,7 +954,10 @@ const initLogout = () => {
 };
 
 // Run initialization functions
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    if (window.Database && typeof window.Database.initDatabase === 'function') {
+        await window.Database.initDatabase();
+    }
     checkAuth();
     initDashboard();
     initGame();
