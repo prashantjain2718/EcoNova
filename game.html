@@ -1,406 +1,528 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Environmental Game - EcoNova</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
     <style>
-        .game-container {
-            background-color: #f9f9f9;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px 0;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        
-        .game-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #e0e0e0;
-        }
-        
-        .game-title h2 {
-            margin: 0;
-            color: #2e7d32;
-        }
-        
-        .game-area {
-            background-color: white;
-            border-radius: 8px;
-            padding: 20px;
-            min-height: 300px;
-            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-        }
-        
-        .quiz-container .question {
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-            font-weight: 500;
-        }
-        
-        .quiz-container .options {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        
-        .quiz-container .option {
-            padding: 12px 15px;
-            background-color: #f1f8e9;
-            border: 2px solid #c5e1a5;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        
-        .quiz-container .option:hover {
-            background-color: #dcedc8;
-        }
-        
-        .quiz-container .option.selected {
-            background-color: #aed581;
-            border-color: #7cb342;
-        }
-        
-        .game-btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-        
-        .btn-primary {
-            background-color: #2e7d32;
-            color: white;
-        }
-        
-        .btn-primary:hover {
-            background-color: #1b5e20;
-        }
-        
-        .btn-secondary {
-            background-color: #e0e0e0;
-            color: #333;
-        }
-        
-        .btn-secondary:hover {
-            background-color: #d0d0d0;
-        }
-        
-        .feedback {
-            padding: 15px;
-            border-radius: 5px;
-            margin-top: 15px;
-            display: none;
-        }
-        
-        .feedback.correct {
-            background-color: #e8f5e9;
-            border-left: 4px solid #4caf50;
-            color: #2e7d32;
-            display: block;
-        }
-        
-        .feedback.incorrect {
-            background-color: #ffebee;
-            border-left: 4px solid #ef5350;
-            color: #c62828;
-            display: block;
-        }
+      .game-container {
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        padding: 20px;
+        margin: 20px 0;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .game-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #e0e0e0;
+      }
+
+      .game-title h2 {
+        margin: 0;
+        color: #2e7d32;
+      }
+
+      .game-area {
+        background-color: white;
+        border-radius: 8px;
+        padding: 20px;
+        min-height: 300px;
+        box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+      }
+
+      .quiz-container .question {
+        font-size: 1.2rem;
+        margin-bottom: 15px;
+        font-weight: 500;
+      }
+
+      .quiz-container .options {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+
+      .quiz-container .option {
+        padding: 12px 15px;
+        background-color: #f1f8e9;
+        border: 2px solid #c5e1a5;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .quiz-container .option:hover {
+        background-color: #dcedc8;
+      }
+
+      .quiz-container .option.selected {
+        background-color: #aed581;
+        border-color: #7cb342;
+      }
+
+      .game-btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: all 0.3s ease;
+      }
+
+      .btn-primary {
+        background-color: #2e7d32;
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background-color: #1b5e20;
+      }
+
+      .btn-secondary {
+        background-color: #e0e0e0;
+        color: #333;
+      }
+
+      .btn-secondary:hover {
+        background-color: #d0d0d0;
+      }
+
+      .feedback {
+        padding: 15px;
+        border-radius: 5px;
+        margin-top: 15px;
+        display: none;
+      }
+
+      .feedback.correct {
+        background-color: #e8f5e9;
+        border-left: 4px solid #4caf50;
+        color: #2e7d32;
+        display: block;
+      }
+
+      .feedback.incorrect {
+        background-color: #ffebee;
+        border-left: 4px solid #ef5350;
+        color: #c62828;
+        display: block;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="dashboard">
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <h2>EcoNova</h2>
-                <p>Student Dashboard</p>
-            </div>
-            <div class="sidebar-menu">
-                <h3>Navigation</h3>
-                <ul>
-                    <li><a href="student-dashboard.html"><i class="fas fa-home"></i> Home</a></li>
-                    <li><a href="#" class="active"><i class="fas fa-gamepad"></i> Games</a></li>
-                    <li><a href="#"><i class="fas fa-trophy"></i> Achievements</a></li>
-                    <li><a href="#"><i class="fas fa-user"></i> Profile</a></li>
-                    <li><a href="#" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
-                </ul>
-            </div>
-        </aside>
-
-        <div class="main-content">
-            <div class="dashboard-header">
-                <div class="welcome-message">
-                    <h2 id="game-level-title">Loading Level...</h2>
-                    <p id="game-level-description">Loading description...</p>
-                </div>
-            </div>
-
-            <div class="game-container">
-                <div class="game-header">
-                    <div class="game-title">
-                        <h2>Environmental Quiz</h2>
-                    </div>
-                    <div class="game-stats">
-                        <div class="game-stat">
-                            <div class="value" id="score-value">0</div>
-                            <div class="label">Score</div>
-                        </div>
-                        <div class="game-stat">
-                            <div class="value" id="question-counter">1/5</div>
-                            <div class="label">Question</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="game-content">
-                    <div class="game-area">
-                        <div class="quiz-container" id="quiz-game">
-                            <div class="question" id="question-text">Which of the following is NOT a major type of soil?</div>
-                            <div class="options" id="options-container">
-                                <div class="option" data-index="0">Sandy soil</div>
-                                <div class="option" data-index="1">Clay soil</div>
-                                <div class="option" data-index="2">Metallic soil</div>
-                                <div class="option" data-index="3">Loamy soil</div>
-                            </div>
-                            <div class="feedback" id="feedback-container"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="game-controls">
-                    <button class="game-btn btn-secondary" id="back-btn">Back to Dashboard</button>
-                    <button class="game-btn btn-primary" id="next-btn">Next</button>
-                </div>
-            </div>
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <h2>EcoNova</h2>
+          <p>Student Dashboard</p>
         </div>
+        <div class="sidebar-menu">
+          <h3>Navigation</h3>
+          <ul>
+            <li>
+              <a href="student-dashboard.html"
+                ><i class="fas fa-home"></i> Home</a
+              >
+            </li>
+            <li>
+              <a href="#" class="active"
+                ><i class="fas fa-gamepad"></i> Games</a
+              >
+            </li>
+            <li>
+              <a href="real-world-tasks.html"
+                ><i class="fas fa-tasks"></i> Real World Tasks</a
+              >
+            </li>
+
+            <li>
+              <a href="#"><i class="fas fa-trophy"></i> Achievements</a>
+            </li>
+            <li>
+              <a href="#"><i class="fas fa-user"></i> Profile</a>
+            </li>
+            <li>
+              <a href="#" class="logout-btn"
+                ><i class="fas fa-sign-out-alt"></i> Logout</a
+              >
+            </li>
+          </ul>
+        </div>
+      </aside>
+
+      <div class="main-content">
+        <div class="dashboard-header">
+          <div class="welcome-message">
+            <h2 id="game-level-title">Loading Level...</h2>
+            <p id="game-level-description">Loading description...</p>
+          </div>
+        </div>
+
+        <div class="game-container">
+          <div class="game-header">
+            <div class="game-title">
+              <h2>Environmental Quiz</h2>
+            </div>
+            <div class="game-stats">
+              <div class="game-stat">
+                <div class="value" id="score-value">0</div>
+                <div class="label">Score</div>
+              </div>
+              <div class="game-stat">
+                <div class="value" id="question-counter">1/5</div>
+                <div class="label">Question</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="game-content">
+            <div class="game-area">
+              <div class="quiz-container" id="quiz-game">
+                <div class="question" id="question-text">
+                  Which of the following is NOT a major type of soil?
+                </div>
+                <div class="options" id="options-container">
+                  <div class="option" data-index="0">Sandy soil</div>
+                  <div class="option" data-index="1">Clay soil</div>
+                  <div class="option" data-index="2">Metallic soil</div>
+                  <div class="option" data-index="3">Loamy soil</div>
+                </div>
+                <div class="feedback" id="feedback-container"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="game-controls">
+            <button class="game-btn btn-secondary" id="back-btn">
+              Back to Dashboard
+            </button>
+            <button class="game-btn btn-primary" id="next-btn">Next</button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script>
-        // Game variables
-        let score = 0;
-        let currentQuestionIndex = 0;
-        let currentLevel = 1;
-        let gameType = 'quiz'; // 'quiz', 'matching', 'puzzle', or 'sorting'
-        
-        // Game data for all levels
-        const gameLevels = [
+      // Game variables
+      let score = 0;
+      let currentQuestionIndex = 0;
+      let currentLevel = 1;
+      let gameType = "quiz"; // 'quiz', 'matching', 'puzzle', or 'sorting'
+
+      // Game data for all levels
+      const gameLevels = [
+        {
+          id: 1,
+          name: "Level 1: Soil Basics",
+          description: "Learn about soil types, air, and the water cycle",
+          type: "quiz",
+          questions: [
             {
-                id: 1,
-                name: "Level 1: Soil Basics",
-                description: "Learn about soil types, air, and the water cycle",
-                type: "quiz",
-                questions: [
-                    {
-                        question: "Which of the following is NOT a major type of soil?",
-                        options: ["Sandy soil", "Clay soil", "Metallic soil", "Loamy soil"],
-                        correctAnswer: 2
-                    },
-                    {
-                        question: "What percentage of soil is ideally made up of air?",
-                        options: ["5-10%", "15-20%", "25-30%", "40-50%"],
-                        correctAnswer: 1
-                    },
-                    {
-                        question: "Which part of the water cycle directly adds water to the soil?",
-                        options: ["Evaporation", "Condensation", "Precipitation", "Transpiration"],
-                        correctAnswer: 2
-                    }
-                ]
+              question: "Which of the following is NOT a major type of soil?",
+              options: [
+                "Sandy soil",
+                "Clay soil",
+                "Metallic soil",
+                "Loamy soil",
+              ],
+              correctAnswer: 2,
             },
             {
-                id: 2,
-                name: "Level 2: Plants 101",
-                description: "Learn about seed germination and photosynthesis basics",
-                type: "quiz",
-                questions: [
-                    {
-                        question: "What is the first stage of plant growth from a seed?",
-                        options: ["Flowering", "Germination", "Pollination", "Fertilization"],
-                        correctAnswer: 1
-                    },
-                    {
-                        question: "Which of the following is NOT needed for photosynthesis?",
-                        options: ["Sunlight", "Carbon dioxide", "Water", "Nitrogen"],
-                        correctAnswer: 3
-                    },
-                    {
-                        question: "What do plants produce during photosynthesis?",
-                        options: ["Carbon dioxide", "Oxygen", "Nitrogen", "Methane"],
-                        correctAnswer: 1
-                    }
-                ]
+              question: "What percentage of soil is ideally made up of air?",
+              options: ["5-10%", "15-20%", "25-30%", "40-50%"],
+              correctAnswer: 1,
             },
             {
-                id: 3,
-                name: "Level 3: Air and Atmosphere",
-                description: "Learn about air composition and the oxygen cycle",
-                type: "matching",
-                pairs: [
-                    { term: "Nitrogen", definition: "Makes up about 78% of Earth's atmosphere" },
-                    { term: "Oxygen", definition: "Makes up about 21% of Earth's atmosphere" },
-                    { term: "Carbon Dioxide", definition: "A greenhouse gas that plants use for photosynthesis" },
-                    { term: "Ozone", definition: "Protects Earth from harmful UV radiation" }
-                ]
+              question:
+                "Which part of the water cycle directly adds water to the soil?",
+              options: [
+                "Evaporation",
+                "Condensation",
+                "Precipitation",
+                "Transpiration",
+              ],
+              correctAnswer: 2,
+            },
+          ],
+        },
+        {
+          id: 2,
+          name: "Level 2: Plants 101",
+          description: "Learn about seed germination and photosynthesis basics",
+          type: "quiz",
+          questions: [
+            {
+              question: "What is the first stage of plant growth from a seed?",
+              options: [
+                "Flowering",
+                "Germination",
+                "Pollination",
+                "Fertilization",
+              ],
+              correctAnswer: 1,
             },
             {
-                id: 4,
-                name: "Level 4: Food Chains",
-                description: "Learn about producers, consumers, and decomposers",
-                type: "sorting",
-                categories: [
-                    { name: "Producers", description: "Organisms that make their own food" },
-                    { name: "Consumers", description: "Organisms that eat other organisms" },
-                    { name: "Decomposers", description: "Organisms that break down dead matter" }
-                ],
-                items: [
-                    { name: "Oak Tree", category: "Producers", image: "fas fa-tree" },
-                    { name: "Grass", category: "Producers", image: "fas fa-seedling" },
-                    { name: "Algae", category: "Producers", image: "fas fa-water" },
-                    { name: "Rabbit", category: "Consumers", image: "fas fa-paw" },
-                    { name: "Hawk", category: "Consumers", image: "fas fa-feather" },
-                    { name: "Human", category: "Consumers", image: "fas fa-user" },
-                    { name: "Mushroom", category: "Decomposers", image: "fas fa-cloud" },
-                    { name: "Bacteria", category: "Decomposers", image: "fas fa-bacterium" },
-                    { name: "Worm", category: "Decomposers", image: "fas fa-worm" }
-                ]
+              question:
+                "Which of the following is NOT needed for photosynthesis?",
+              options: ["Sunlight", "Carbon dioxide", "Water", "Nitrogen"],
+              correctAnswer: 3,
             },
             {
-                id: 5,
-                name: "Level 5: Water Resources",
-                description: "Learn about freshwater, groundwater, and oceans",
-                type: "puzzle",
-                puzzleType: "jigsaw",
-                imageUrl: "images/water-cycle.jpg",
-                gridSize: { rows: 3, cols: 3 },
-                facts: [
-                    "71% of Earth's surface is covered by water",
-                    "Only 3% of Earth's water is freshwater",
-                    "About 1.2 billion people lack access to clean drinking water",
-                    "The water cycle is powered by the sun's energy",
-                    "Groundwater provides drinking water for 51% of the US population"
-                ]
+              question: "What do plants produce during photosynthesis?",
+              options: ["Carbon dioxide", "Oxygen", "Nitrogen", "Methane"],
+              correctAnswer: 1,
+            },
+          ],
+        },
+        {
+          id: 3,
+          name: "Level 3: Air and Atmosphere",
+          description: "Learn about air composition and the oxygen cycle",
+          type: "matching",
+          pairs: [
+            {
+              term: "Nitrogen",
+              definition: "Makes up about 78% of Earth's atmosphere",
             },
             {
-                id: 6,
-                name: "Level 6: Renewable Energy",
-                description: "Learn about solar, wind, and hydroelectric power",
-                type: "matching",
-                pairs: [
-                    { term: "Solar Energy", definition: "Power generated from the sun's rays" },
-                    { term: "Wind Energy", definition: "Power generated from moving air" },
-                    { term: "Hydroelectric", definition: "Power generated from flowing water" },
-                    { term: "Geothermal", definition: "Power generated from Earth's internal heat" },
-                    { term: "Biomass", definition: "Power generated from organic materials" }
-                ]
+              term: "Oxygen",
+              definition: "Makes up about 21% of Earth's atmosphere",
             },
             {
-                id: 7,
-                name: "Level 7: Waste Management",
-                description: "Learn about proper waste sorting and recycling",
-                type: "waste-sorting",
-                bins: [
-                    { name: "Recycling", color: "#2196F3", icon: "fas fa-recycle" },
-                    { name: "Compost", color: "#4CAF50", icon: "fas fa-leaf" },
-                    { name: "Landfill", color: "#607D8B", icon: "fas fa-trash" }
-                ],
-                items: [
-                    { name: "Plastic Bottle", bin: "Recycling", image: "fas fa-wine-bottle" },
-                    { name: "Newspaper", bin: "Recycling", image: "fas fa-newspaper" },
-                    { name: "Aluminum Can", bin: "Recycling", image: "fas fa-box" },
-                    { name: "Glass Jar", bin: "Recycling", image: "fas fa-glass-whiskey" },
-                    { name: "Cardboard Box", bin: "Recycling", image: "fas fa-box-open" },
-                    { name: "Banana Peel", bin: "Compost", image: "fas fa-apple-alt" },
-                    { name: "Coffee Grounds", bin: "Compost", image: "fas fa-mug-hot" },
-                    { name: "Egg Shells", bin: "Compost", image: "fas fa-egg" },
-                    { name: "Vegetable Scraps", bin: "Compost", image: "fas fa-carrot" },
-                    { name: "Yard Trimmings", bin: "Compost", image: "fas fa-leaf" },
-                    { name: "Styrofoam", bin: "Landfill", image: "fas fa-box" },
-                    { name: "Plastic Bags", bin: "Landfill", image: "fas fa-shopping-bag" },
-                    { name: "Candy Wrappers", bin: "Landfill", image: "fas fa-candy-cane" },
-                    { name: "Diapers", bin: "Landfill", image: "fas fa-baby" },
-                    { name: "Broken Ceramics", bin: "Landfill", image: "fas fa-wine-glass-alt" }
-                ],
-                facts: [
-                    "Recycling one aluminum can saves enough energy to run a TV for three hours",
-                    "The average person generates about 4.5 pounds of trash every day",
-                    "About 75% of American waste is recyclable, but we only recycle about 30%",
-                    "Composting can reduce the amount of waste sent to landfills by up to 30%",
-                    "It takes a plastic bottle 450 years to decompose in a landfill"
-                ]
-            }
-        ];
-        
-        // DOM Elements
-        const questionText = document.getElementById('question-text');
-        const optionsContainer = document.getElementById('options-container');
-        const feedbackContainer = document.getElementById('feedback-container');
-        const scoreValue = document.getElementById('score-value');
-        const questionCounter = document.getElementById('question-counter');
-        const nextButton = document.getElementById('next-btn');
-        const backButton = document.getElementById('back-btn');
-        const gameLevelTitle = document.getElementById('game-level-title');
-        const gameLevelDescription = document.getElementById('game-level-description');
-        
-        // Get level from URL parameter
-        function getLevelFromURL() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const levelParam = urlParams.get('level');
-            return levelParam ? parseInt(levelParam) : 1; // Default to level 1 if not specified
+              term: "Carbon Dioxide",
+              definition: "A greenhouse gas that plants use for photosynthesis",
+            },
+            {
+              term: "Ozone",
+              definition: "Protects Earth from harmful UV radiation",
+            },
+          ],
+        },
+        {
+          id: 4,
+          name: "Level 4: Food Chains",
+          description: "Learn about producers, consumers, and decomposers",
+          type: "sorting",
+          categories: [
+            {
+              name: "Producers",
+              description: "Organisms that make their own food",
+            },
+            {
+              name: "Consumers",
+              description: "Organisms that eat other organisms",
+            },
+            {
+              name: "Decomposers",
+              description: "Organisms that break down dead matter",
+            },
+          ],
+          items: [
+            { name: "Oak Tree", category: "Producers", image: "fas fa-tree" },
+            { name: "Grass", category: "Producers", image: "fas fa-seedling" },
+            { name: "Algae", category: "Producers", image: "fas fa-water" },
+            { name: "Rabbit", category: "Consumers", image: "fas fa-paw" },
+            { name: "Hawk", category: "Consumers", image: "fas fa-feather" },
+            { name: "Human", category: "Consumers", image: "fas fa-user" },
+            {
+              name: "Mushroom",
+              category: "Decomposers",
+              image: "fas fa-cloud",
+            },
+            {
+              name: "Bacteria",
+              category: "Decomposers",
+              image: "fas fa-bacterium",
+            },
+            { name: "Worm", category: "Decomposers", image: "fas fa-worm" },
+          ],
+        },
+        {
+          id: 5,
+          name: "Level 5: Water Resources",
+          description: "Learn about freshwater, groundwater, and oceans",
+          type: "puzzle",
+          puzzleType: "jigsaw",
+          imageUrl: "images/water-cycle.jpg",
+          gridSize: { rows: 3, cols: 3 },
+          facts: [
+            "71% of Earth's surface is covered by water",
+            "Only 3% of Earth's water is freshwater",
+            "About 1.2 billion people lack access to clean drinking water",
+            "The water cycle is powered by the sun's energy",
+            "Groundwater provides drinking water for 51% of the US population",
+          ],
+        },
+        {
+          id: 6,
+          name: "Level 6: Renewable Energy",
+          description: "Learn about solar, wind, and hydroelectric power",
+          type: "matching",
+          pairs: [
+            {
+              term: "Solar Energy",
+              definition: "Power generated from the sun's rays",
+            },
+            {
+              term: "Wind Energy",
+              definition: "Power generated from moving air",
+            },
+            {
+              term: "Hydroelectric",
+              definition: "Power generated from flowing water",
+            },
+            {
+              term: "Geothermal",
+              definition: "Power generated from Earth's internal heat",
+            },
+            {
+              term: "Biomass",
+              definition: "Power generated from organic materials",
+            },
+          ],
+        },
+        {
+          id: 7,
+          name: "Level 7: Waste Management",
+          description: "Learn about proper waste sorting and recycling",
+          type: "waste-sorting",
+          bins: [
+            { name: "Recycling", color: "#2196F3", icon: "fas fa-recycle" },
+            { name: "Compost", color: "#4CAF50", icon: "fas fa-leaf" },
+            { name: "Landfill", color: "#607D8B", icon: "fas fa-trash" },
+          ],
+          items: [
+            {
+              name: "Plastic Bottle",
+              bin: "Recycling",
+              image: "fas fa-wine-bottle",
+            },
+            { name: "Newspaper", bin: "Recycling", image: "fas fa-newspaper" },
+            { name: "Aluminum Can", bin: "Recycling", image: "fas fa-box" },
+            {
+              name: "Glass Jar",
+              bin: "Recycling",
+              image: "fas fa-glass-whiskey",
+            },
+            {
+              name: "Cardboard Box",
+              bin: "Recycling",
+              image: "fas fa-box-open",
+            },
+            { name: "Banana Peel", bin: "Compost", image: "fas fa-apple-alt" },
+            { name: "Coffee Grounds", bin: "Compost", image: "fas fa-mug-hot" },
+            { name: "Egg Shells", bin: "Compost", image: "fas fa-egg" },
+            {
+              name: "Vegetable Scraps",
+              bin: "Compost",
+              image: "fas fa-carrot",
+            },
+            { name: "Yard Trimmings", bin: "Compost", image: "fas fa-leaf" },
+            { name: "Styrofoam", bin: "Landfill", image: "fas fa-box" },
+            {
+              name: "Plastic Bags",
+              bin: "Landfill",
+              image: "fas fa-shopping-bag",
+            },
+            {
+              name: "Candy Wrappers",
+              bin: "Landfill",
+              image: "fas fa-candy-cane",
+            },
+            { name: "Diapers", bin: "Landfill", image: "fas fa-baby" },
+            {
+              name: "Broken Ceramics",
+              bin: "Landfill",
+              image: "fas fa-wine-glass-alt",
+            },
+          ],
+          facts: [
+            "Recycling one aluminum can saves enough energy to run a TV for three hours",
+            "The average person generates about 4.5 pounds of trash every day",
+            "About 75% of American waste is recyclable, but we only recycle about 30%",
+            "Composting can reduce the amount of waste sent to landfills by up to 30%",
+            "It takes a plastic bottle 450 years to decompose in a landfill",
+          ],
+        },
+      ];
+
+      // DOM Elements
+      const questionText = document.getElementById("question-text");
+      const optionsContainer = document.getElementById("options-container");
+      const feedbackContainer = document.getElementById("feedback-container");
+      const scoreValue = document.getElementById("score-value");
+      const questionCounter = document.getElementById("question-counter");
+      const nextButton = document.getElementById("next-btn");
+      const backButton = document.getElementById("back-btn");
+      const gameLevelTitle = document.getElementById("game-level-title");
+      const gameLevelDescription = document.getElementById(
+        "game-level-description"
+      );
+
+      // Get level from URL parameter
+      function getLevelFromURL() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const levelParam = urlParams.get("level");
+        return levelParam ? parseInt(levelParam) : 1; // Default to level 1 if not specified
+      }
+
+      // Initialize game
+      function initGame() {
+        // Get level from URL
+        currentLevel = getLevelFromURL();
+
+        // Find level data
+        const levelData =
+          gameLevels.find((level) => level.id === currentLevel) ||
+          gameLevels[0];
+
+        // Set game type
+        gameType = levelData.type;
+
+        // Update level title and description
+        gameLevelTitle.textContent = levelData.name;
+        gameLevelDescription.textContent = levelData.description;
+
+        // Initialize based on game type
+        if (gameType === "quiz") {
+          initQuizGame(levelData.questions);
+        } else if (gameType === "matching") {
+          initMatchingGame(levelData.pairs);
+        } else if (gameType === "sorting") {
+          initSortingGame(levelData.categories, levelData.items);
+        } else if (gameType === "puzzle") {
+          initPuzzleGame(levelData);
+        } else if (gameType === "waste-sorting") {
+          initWasteSortingGame(levelData);
         }
-        
-        // Initialize game
-        function initGame() {
-            // Get level from URL
-            currentLevel = getLevelFromURL();
-            
-            // Find level data
-            const levelData = gameLevels.find(level => level.id === currentLevel) || gameLevels[0];
-            
-            // Set game type
-            gameType = levelData.type;
-            
-            // Update level title and description
-            gameLevelTitle.textContent = levelData.name;
-            gameLevelDescription.textContent = levelData.description;
-            
-            // Initialize based on game type
-            if (gameType === 'quiz') {
-                initQuizGame(levelData.questions);
-            } else if (gameType === 'matching') {
-                initMatchingGame(levelData.pairs);
-            } else if (gameType === 'sorting') {
-                initSortingGame(levelData.categories, levelData.items);
-            } else if (gameType === 'puzzle') {
-                initPuzzleGame(levelData);
-            } else if (gameType === 'waste-sorting') {
-                initWasteSortingGame(levelData);
-            }
-            
-            setupEventListeners();
-        }
-        
-        // Initialize quiz game
-        function initQuizGame(questions) {
-            // Set quiz questions
-            quizQuestions = questions;
-            loadQuestion();
-        }
-        
-        // Initialize matching game
-        function initMatchingGame(pairs) {
-            // Clear quiz container
-            const quizContainer = document.getElementById('quiz-game');
-            quizContainer.innerHTML = `
+
+        setupEventListeners();
+      }
+
+      // Initialize quiz game
+      function initQuizGame(questions) {
+        // Set quiz questions
+        quizQuestions = questions;
+        loadQuestion();
+      }
+
+      // Initialize matching game
+      function initMatchingGame(pairs) {
+        // Clear quiz container
+        const quizContainer = document.getElementById("quiz-game");
+        quizContainer.innerHTML = `
                 <h3>Match the terms with their correct definitions</h3>
                 <div class="matching-instructions">
                     <p><i class="fas fa-info-circle"></i> Drag the terms on the left to their matching definitions on the right</p>
@@ -411,127 +533,137 @@
                 </div>
                 <div class="feedback" id="feedback-container"></div>
             `;
-            
-            // Create terms and definitions
-            const termsColumn = document.getElementById('terms-column');
-            const definitionsColumn = document.getElementById('definitions-column');
-            
-            // Shuffle definitions
-            const shuffledDefinitions = [...pairs].sort(() => Math.random() - 0.5);
-            
-            // Add terms
-            pairs.forEach((pair, index) => {
-                const termElement = document.createElement('div');
-                termElement.classList.add('matching-item', 'term');
-                termElement.setAttribute('data-term-id', index);
-                termElement.innerHTML = `<span class="drag-icon"><i class="fas fa-grip-lines"></i></span> ${pair.term}`;
-                termsColumn.appendChild(termElement);
-                
-                // Make terms draggable
-                termElement.setAttribute('draggable', true);
-                termElement.addEventListener('dragstart', (e) => {
-                    e.dataTransfer.setData('text/plain', index);
-                    termElement.classList.add('dragging');
+
+        // Create terms and definitions
+        const termsColumn = document.getElementById("terms-column");
+        const definitionsColumn = document.getElementById("definitions-column");
+
+        // Shuffle definitions
+        const shuffledDefinitions = [...pairs].sort(() => Math.random() - 0.5);
+
+        // Add terms
+        pairs.forEach((pair, index) => {
+          const termElement = document.createElement("div");
+          termElement.classList.add("matching-item", "term");
+          termElement.setAttribute("data-term-id", index);
+          termElement.innerHTML = `<span class="drag-icon"><i class="fas fa-grip-lines"></i></span> ${pair.term}`;
+          termsColumn.appendChild(termElement);
+
+          // Make terms draggable
+          termElement.setAttribute("draggable", true);
+          termElement.addEventListener("dragstart", (e) => {
+            e.dataTransfer.setData("text/plain", index);
+            termElement.classList.add("dragging");
+          });
+          termElement.addEventListener("dragend", () => {
+            termElement.classList.remove("dragging");
+          });
+        });
+
+        // Add definitions
+        shuffledDefinitions.forEach((pair, index) => {
+          const defElement = document.createElement("div");
+          defElement.classList.add("matching-item", "definition");
+          defElement.setAttribute(
+            "data-def-id",
+            pairs.findIndex((p) => p.definition === pair.definition)
+          );
+          defElement.innerHTML = `<span class="drop-icon"><i class="fas fa-bullseye"></i></span> ${pair.definition}`;
+          definitionsColumn.appendChild(defElement);
+
+          // Make definitions drop targets
+          defElement.addEventListener("dragover", (e) => {
+            e.preventDefault();
+            defElement.classList.add("dragover");
+          });
+
+          defElement.addEventListener("dragleave", () => {
+            defElement.classList.remove("dragover");
+          });
+
+          defElement.addEventListener("drop", (e) => {
+            e.preventDefault();
+            defElement.classList.remove("dragover");
+            const termId = e.dataTransfer.getData("text/plain");
+            const defId = defElement.getAttribute("data-def-id");
+            const termElement = document.querySelector(
+              `[data-term-id="${termId}"]`
+            );
+
+            if (termId === defId) {
+              defElement.classList.add("correct-match");
+              termElement.classList.add("correct-match");
+              score += 10;
+              scoreValue.textContent = score;
+
+              // Disable matched items
+              termElement.setAttribute("draggable", false);
+              termElement.classList.add("matched");
+              defElement.classList.add("matched");
+
+              // Show feedback
+              feedbackContainer.className = "feedback correct";
+              feedbackContainer.textContent = "Correct match!";
+              setTimeout(() => {
+                feedbackContainer.className = "feedback";
+              }, 2000);
+
+              // Check if all matched
+              const allMatched =
+                document.querySelectorAll(".term.correct-match").length ===
+                pairs.length;
+              if (allMatched) {
+                feedbackContainer.className = "feedback correct";
+                feedbackContainer.textContent =
+                  "Great job! You matched all items correctly!";
+                nextButton.textContent = "Finish";
+                nextButton.disabled = false;
+                nextButton.style.backgroundColor = "#2e7d32";
+                nextButton.style.cursor = "pointer";
+                nextButton.removeEventListener("click", nextQuestion);
+                nextButton.addEventListener("click", () => {
+                  saveProgress();
+                  window.location.href = "student-dashboard.html";
                 });
-                termElement.addEventListener('dragend', () => {
-                    termElement.classList.remove('dragging');
-                });
-            });
-            
-            // Add definitions
-            shuffledDefinitions.forEach((pair, index) => {
-                const defElement = document.createElement('div');
-                defElement.classList.add('matching-item', 'definition');
-                defElement.setAttribute('data-def-id', pairs.findIndex(p => p.definition === pair.definition));
-                defElement.innerHTML = `<span class="drop-icon"><i class="fas fa-bullseye"></i></span> ${pair.definition}`;
-                definitionsColumn.appendChild(defElement);
-                
-                // Make definitions drop targets
-                defElement.addEventListener('dragover', (e) => {
-                    e.preventDefault();
-                    defElement.classList.add('dragover');
-                });
-                
-                defElement.addEventListener('dragleave', () => {
-                    defElement.classList.remove('dragover');
-                });
-                
-                defElement.addEventListener('drop', (e) => {
-                    e.preventDefault();
-                    defElement.classList.remove('dragover');
-                    const termId = e.dataTransfer.getData('text/plain');
-                    const defId = defElement.getAttribute('data-def-id');
-                    const termElement = document.querySelector(`[data-term-id="${termId}"]`);
-                    
-                    if (termId === defId) {
-                        defElement.classList.add('correct-match');
-                        termElement.classList.add('correct-match');
-                        score += 10;
-                        scoreValue.textContent = score;
-                        
-                        // Disable matched items
-                        termElement.setAttribute('draggable', false);
-                        termElement.classList.add('matched');
-                        defElement.classList.add('matched');
-                        
-                        // Show feedback
-                        feedbackContainer.className = 'feedback correct';
-                        feedbackContainer.textContent = 'Correct match!';
-                        setTimeout(() => {
-                            feedbackContainer.className = 'feedback';
-                        }, 2000);
-                        
-                        // Check if all matched
-                        const allMatched = document.querySelectorAll('.term.correct-match').length === pairs.length;
-                        if (allMatched) {
-                            feedbackContainer.className = 'feedback correct';
-                            feedbackContainer.textContent = 'Great job! You matched all items correctly!';
-                            nextButton.textContent = "Finish";
-                            nextButton.disabled = false;
-                            nextButton.style.backgroundColor = '#2e7d32';
-                            nextButton.style.cursor = 'pointer';
-                            nextButton.removeEventListener('click', nextQuestion);
-                            nextButton.addEventListener('click', () => {
-                                saveProgress();
-                                window.location.href = 'student-dashboard.html';
-                            });
-                        }
-                    } else {
-                        defElement.classList.add('wrong-match');
-                        termElement.classList.add('wrong-match');
-                        
-                        // Show feedback
-                        feedbackContainer.className = 'feedback incorrect';
-                        feedbackContainer.textContent = 'Incorrect match. Try again!';
-                        
-                        setTimeout(() => {
-                            defElement.classList.remove('wrong-match');
-                            termElement.classList.remove('wrong-match');
-                            feedbackContainer.className = 'feedback';
-                        }, 1500);
-                    }
-                });
-            });
-        }
-        
-        // Initialize sorting game
-        function initSortingGame(categories, items) {
-            // Clear quiz container
-            const quizContainer = document.getElementById('quiz-game');
-            
-            // Create HTML structure
-            let categoriesHTML = '';
-            categories.forEach(category => {
-                categoriesHTML += `
-                    <div class="sorting-category" data-category="${category.name}">
+              }
+            } else {
+              defElement.classList.add("wrong-match");
+              termElement.classList.add("wrong-match");
+
+              // Show feedback
+              feedbackContainer.className = "feedback incorrect";
+              feedbackContainer.textContent = "Incorrect match. Try again!";
+
+              setTimeout(() => {
+                defElement.classList.remove("wrong-match");
+                termElement.classList.remove("wrong-match");
+                feedbackContainer.className = "feedback";
+              }, 1500);
+            }
+          });
+        });
+      }
+
+      // Initialize sorting game
+      function initSortingGame(categories, items) {
+        // Clear quiz container
+        const quizContainer = document.getElementById("quiz-game");
+
+        // Create HTML structure
+        let categoriesHTML = "";
+        categories.forEach((category) => {
+          categoriesHTML += `
+                    <div class="sorting-category" data-category="${
+                      category.name
+                    }">
                         <h4>${category.name}</h4>
                         <p>${category.description}</p>
                         <div class="sorting-items-container" id="${category.name.toLowerCase()}-container"></div>
                     </div>
                 `;
-            });
-            
-            quizContainer.innerHTML = `
+        });
+
+        quizContainer.innerHTML = `
                 <h3>Sort the items into their correct categories</h3>
                 <div class="sorting-instructions">
                     <p><i class="fas fa-info-circle"></i> Drag each item to its correct category</p>
@@ -542,120 +674,132 @@
                 </div>
                 <div class="feedback" id="feedback-container"></div>
             `;
-            
-            // Create and add items to the pool
-            const itemsPool = document.getElementById('items-pool');
-            
-            // Shuffle items
-            const shuffledItems = [...items].sort(() => Math.random() - 0.5);
-            
-            shuffledItems.forEach((item, index) => {
-                const itemElement = document.createElement('div');
-                itemElement.classList.add('sorting-item');
-                itemElement.setAttribute('data-item-id', index);
-                itemElement.setAttribute('data-category', item.category);
-                itemElement.innerHTML = `
+
+        // Create and add items to the pool
+        const itemsPool = document.getElementById("items-pool");
+
+        // Shuffle items
+        const shuffledItems = [...items].sort(() => Math.random() - 0.5);
+
+        shuffledItems.forEach((item, index) => {
+          const itemElement = document.createElement("div");
+          itemElement.classList.add("sorting-item");
+          itemElement.setAttribute("data-item-id", index);
+          itemElement.setAttribute("data-category", item.category);
+          itemElement.innerHTML = `
                     <i class="${item.image}"></i>
                     <span>${item.name}</span>
                 `;
-                itemsPool.appendChild(itemElement);
-                
-                // Make items draggable
-                itemElement.setAttribute('draggable', true);
-                itemElement.addEventListener('dragstart', (e) => {
-                    e.dataTransfer.setData('text/plain', JSON.stringify({
-                        id: index,
-                        category: item.category
-                    }));
-                    itemElement.classList.add('dragging');
-                });
-                itemElement.addEventListener('dragend', () => {
-                    itemElement.classList.remove('dragging');
-                });
-            });
-            
-            // Make category containers droppable
-            categories.forEach(category => {
-                const container = document.getElementById(`${category.name.toLowerCase()}-container`);
-                
-                container.addEventListener('dragover', (e) => {
-                    e.preventDefault();
-                    container.classList.add('dragover');
-                });
-                
-                container.addEventListener('dragleave', () => {
-                    container.classList.remove('dragover');
-                });
-                
-                container.addEventListener('drop', (e) => {
-                    e.preventDefault();
-                    container.classList.remove('dragover');
-                    
-                    const data = JSON.parse(e.dataTransfer.getData('text/plain'));
-                    const itemElement = document.querySelector(`[data-item-id="${data.id}"]`);
-                    
-                    if (data.category === category.name) {
-                        // Correct category
-                        container.appendChild(itemElement);
-                        itemElement.classList.add('correct-sort');
-                        itemElement.setAttribute('draggable', false);
-                        
-                        score += 10;
-                        scoreValue.textContent = score;
-                        
-                        // Show feedback
-                        feedbackContainer.className = 'feedback correct';
-                        feedbackContainer.textContent = 'Correct sorting!';
-                        setTimeout(() => {
-                            feedbackContainer.className = 'feedback';
-                        }, 2000);
-                        
-                        // Check if all items are sorted
-                        const allSorted = document.querySelectorAll('.sorting-item.correct-sort').length === items.length;
-                        if (allSorted) {
-                            feedbackContainer.className = 'feedback correct';
-                            feedbackContainer.textContent = 'Great job! You sorted all items correctly!';
-                            nextButton.textContent = "Finish";
-                            nextButton.disabled = false;
-                            nextButton.style.backgroundColor = '#2e7d32';
-                            nextButton.style.cursor = 'pointer';
-                        }
-                    } else {
-                        // Wrong category
-                        itemElement.classList.add('wrong-sort');
-                        
-                        // Show feedback
-                        feedbackContainer.className = 'feedback incorrect';
-                        feedbackContainer.textContent = 'Not quite right. Try again!';
-                        
-                        // Remove wrong sort class after animation
-                        setTimeout(() => {
-                            itemElement.classList.remove('wrong-sort');
-                            feedbackContainer.className = 'feedback';
-                        }, 1000);
-                    }
-                });
-            });
-            
-            // Handle next button for sorting game
-            nextButton.addEventListener('click', () => {
-                if (nextButton.textContent === "Finish") {
-                    // Save progress and redirect to levels page
-                    saveProgress(currentLevel);
-                    window.location.href = 'levels.html';
-                }
-            });
-        }
-        
-        // Initialize puzzle game
-        function initPuzzleGame(levelData) {
-            // Clear quiz container
-            const quizContainer = document.getElementById('quiz-game');
-            
-            // Create HTML structure based on puzzle type
-            if (levelData.puzzleType === 'jigsaw') {
-                quizContainer.innerHTML = `
-                    <h3>Complete the puzzle to learn about ${levelData.name.split(':')[1].trim()}</h3>
+          itemsPool.appendChild(itemElement);
+
+          // Make items draggable
+          itemElement.setAttribute("draggable", true);
+          itemElement.addEventListener("dragstart", (e) => {
+            e.dataTransfer.setData(
+              "text/plain",
+              JSON.stringify({
+                id: index,
+                category: item.category,
+              })
+            );
+            itemElement.classList.add("dragging");
+          });
+          itemElement.addEventListener("dragend", () => {
+            itemElement.classList.remove("dragging");
+          });
+        });
+
+        // Make category containers droppable
+        categories.forEach((category) => {
+          const container = document.getElementById(
+            `${category.name.toLowerCase()}-container`
+          );
+
+          container.addEventListener("dragover", (e) => {
+            e.preventDefault();
+            container.classList.add("dragover");
+          });
+
+          container.addEventListener("dragleave", () => {
+            container.classList.remove("dragover");
+          });
+
+          container.addEventListener("drop", (e) => {
+            e.preventDefault();
+            container.classList.remove("dragover");
+
+            const data = JSON.parse(e.dataTransfer.getData("text/plain"));
+            const itemElement = document.querySelector(
+              `[data-item-id="${data.id}"]`
+            );
+
+            if (data.category === category.name) {
+              // Correct category
+              container.appendChild(itemElement);
+              itemElement.classList.add("correct-sort");
+              itemElement.setAttribute("draggable", false);
+
+              score += 10;
+              scoreValue.textContent = score;
+
+              // Show feedback
+              feedbackContainer.className = "feedback correct";
+              feedbackContainer.textContent = "Correct sorting!";
+              setTimeout(() => {
+                feedbackContainer.className = "feedback";
+              }, 2000);
+
+              // Check if all items are sorted
+              const allSorted =
+                document.querySelectorAll(".sorting-item.correct-sort")
+                  .length === items.length;
+              if (allSorted) {
+                feedbackContainer.className = "feedback correct";
+                feedbackContainer.textContent =
+                  "Great job! You sorted all items correctly!";
+                nextButton.textContent = "Finish";
+                nextButton.disabled = false;
+                nextButton.style.backgroundColor = "#2e7d32";
+                nextButton.style.cursor = "pointer";
+              }
+            } else {
+              // Wrong category
+              itemElement.classList.add("wrong-sort");
+
+              // Show feedback
+              feedbackContainer.className = "feedback incorrect";
+              feedbackContainer.textContent = "Not quite right. Try again!";
+
+              // Remove wrong sort class after animation
+              setTimeout(() => {
+                itemElement.classList.remove("wrong-sort");
+                feedbackContainer.className = "feedback";
+              }, 1000);
+            }
+          });
+        });
+
+        // Handle next button for sorting game
+        nextButton.addEventListener("click", () => {
+          if (nextButton.textContent === "Finish") {
+            // Save progress and redirect to levels page
+            saveProgress(currentLevel);
+            window.location.href = "levels.html";
+          }
+        });
+      }
+
+      // Initialize puzzle game
+      function initPuzzleGame(levelData) {
+        // Clear quiz container
+        const quizContainer = document.getElementById("quiz-game");
+
+        // Create HTML structure based on puzzle type
+        if (levelData.puzzleType === "jigsaw") {
+          quizContainer.innerHTML = `
+                    <h3>Complete the puzzle to learn about ${levelData.name
+                      .split(":")[1]
+                      .trim()}</h3>
                     <div class="puzzle-instructions">
                         <p><i class="fas fa-info-circle"></i> Drag and arrange the puzzle pieces to complete the image</p>
                     </div>
@@ -669,152 +813,166 @@
                     </div>
                     <div class="feedback" id="feedback-container"></div>
                 `;
-                
-                // Create puzzle grid
-                const puzzleBoard = document.getElementById('puzzle-board');
-                const puzzlePieces = document.getElementById('puzzle-pieces');
-                const factsList = document.getElementById('puzzle-facts-list');
-                
-                // Set up the puzzle board grid
-                puzzleBoard.style.gridTemplateRows = `repeat(${levelData.gridSize.rows}, 1fr)`;
-                puzzleBoard.style.gridTemplateColumns = `repeat(${levelData.gridSize.cols}, 1fr)`;
-                
-                // Create empty slots on the board
-                const totalPieces = levelData.gridSize.rows * levelData.gridSize.cols;
-                for (let i = 0; i < totalPieces; i++) {
-                    const slot = document.createElement('div');
-                    slot.classList.add('puzzle-slot');
-                    slot.setAttribute('data-slot-id', i);
-                    puzzleBoard.appendChild(slot);
-                    
-                    // Make slots droppable
-                    slot.addEventListener('dragover', (e) => {
-                        e.preventDefault();
-                        slot.classList.add('dragover');
-                    });
-                    
-                    slot.addEventListener('dragleave', () => {
-                        slot.classList.remove('dragover');
-                    });
-                    
-                    slot.addEventListener('drop', (e) => {
-                        e.preventDefault();
-                        slot.classList.remove('dragover');
-                        
-                        const pieceId = e.dataTransfer.getData('text/plain');
-                        const pieceElement = document.querySelector(`[data-piece-id="${pieceId}"]`);
-                        
-                        // Check if the slot is empty
-                        if (!slot.hasChildNodes()) {
-                            slot.appendChild(pieceElement);
-                            pieceElement.classList.add('placed');
-                            
-                            // Check if puzzle is complete
-                            const placedPieces = document.querySelectorAll('.puzzle-piece.placed');
-                            if (placedPieces.length === totalPieces) {
-                                // Check if pieces are in correct positions
-                                let allCorrect = true;
-                                placedPieces.forEach(piece => {
-                                    const pieceId = piece.getAttribute('data-piece-id');
-                                    const slotId = piece.parentElement.getAttribute('data-slot-id');
-                                    if (pieceId !== slotId) {
-                                        allCorrect = false;
-                                    }
-                                });
-                                
-                                if (allCorrect) {
-                                    // Puzzle completed correctly
-                                    feedbackContainer.className = 'feedback correct';
-                                    feedbackContainer.textContent = 'Great job! You completed the puzzle!';
-                                    score += 50;
-                                    scoreValue.textContent = score;
-                                    
-                                    nextButton.textContent = "Finish";
-                                    nextButton.disabled = false;
-                                    nextButton.style.backgroundColor = '#2e7d32';
-                                    nextButton.style.cursor = 'pointer';
-                                    
-                                    // Show all facts
-                                    document.querySelectorAll('.puzzle-fact').forEach(fact => {
-                                        fact.style.opacity = '1';
-                                    });
-                                }
-                            }
-                        }
-                    });
-                }
-                
-                // Create puzzle pieces
-                const pieces = Array.from({length: totalPieces}, (_, i) => i);
-                const shuffledPieces = [...pieces].sort(() => Math.random() - 0.5);
-                
-                shuffledPieces.forEach((pieceId) => {
-                    const piece = document.createElement('div');
-                    piece.classList.add('puzzle-piece');
-                    piece.setAttribute('data-piece-id', pieceId);
-                    
-                    // Calculate position in the original image
-                    const row = Math.floor(pieceId / levelData.gridSize.cols);
-                    const col = pieceId % levelData.gridSize.cols;
-                    
-                    // Set background image position
-                    piece.style.backgroundImage = `url(${levelData.imageUrl})`;
-                    piece.style.backgroundSize = `${levelData.gridSize.cols * 100}% ${levelData.gridSize.rows * 100}%`;
-                    piece.style.backgroundPosition = `-${col * 100}% -${row * 100}%`;
-                    
-                    puzzlePieces.appendChild(piece);
-                    
-                    // Make pieces draggable
-                    piece.setAttribute('draggable', true);
-                    piece.addEventListener('dragstart', (e) => {
-                        e.dataTransfer.setData('text/plain', pieceId);
-                        piece.classList.add('dragging');
-                    });
-                    piece.addEventListener('dragend', () => {
-                        piece.classList.remove('dragging');
-                    });
-                });
-                
-                // Add facts with initially reduced opacity
-                levelData.facts.forEach(fact => {
-                    const factItem = document.createElement('li');
-                    factItem.classList.add('puzzle-fact');
-                    factItem.textContent = fact;
-                    factItem.style.opacity = '0.5';
-                    factsList.appendChild(factItem);
-                });
-            }
-            
-            // Handle next button for puzzle game
-            nextButton.addEventListener('click', () => {
-                if (nextButton.textContent === "Finish") {
-                    // Save progress and redirect to levels page
-                    saveProgress(currentLevel);
-                    window.location.href = 'levels.html';
-                }
+
+          // Create puzzle grid
+          const puzzleBoard = document.getElementById("puzzle-board");
+          const puzzlePieces = document.getElementById("puzzle-pieces");
+          const factsList = document.getElementById("puzzle-facts-list");
+
+          // Set up the puzzle board grid
+          puzzleBoard.style.gridTemplateRows = `repeat(${levelData.gridSize.rows}, 1fr)`;
+          puzzleBoard.style.gridTemplateColumns = `repeat(${levelData.gridSize.cols}, 1fr)`;
+
+          // Create empty slots on the board
+          const totalPieces = levelData.gridSize.rows * levelData.gridSize.cols;
+          for (let i = 0; i < totalPieces; i++) {
+            const slot = document.createElement("div");
+            slot.classList.add("puzzle-slot");
+            slot.setAttribute("data-slot-id", i);
+            puzzleBoard.appendChild(slot);
+
+            // Make slots droppable
+            slot.addEventListener("dragover", (e) => {
+              e.preventDefault();
+              slot.classList.add("dragover");
             });
+
+            slot.addEventListener("dragleave", () => {
+              slot.classList.remove("dragover");
+            });
+
+            slot.addEventListener("drop", (e) => {
+              e.preventDefault();
+              slot.classList.remove("dragover");
+
+              const pieceId = e.dataTransfer.getData("text/plain");
+              const pieceElement = document.querySelector(
+                `[data-piece-id="${pieceId}"]`
+              );
+
+              // Check if the slot is empty
+              if (!slot.hasChildNodes()) {
+                slot.appendChild(pieceElement);
+                pieceElement.classList.add("placed");
+
+                // Check if puzzle is complete
+                const placedPieces = document.querySelectorAll(
+                  ".puzzle-piece.placed"
+                );
+                if (placedPieces.length === totalPieces) {
+                  // Check if pieces are in correct positions
+                  let allCorrect = true;
+                  placedPieces.forEach((piece) => {
+                    const pieceId = piece.getAttribute("data-piece-id");
+                    const slotId =
+                      piece.parentElement.getAttribute("data-slot-id");
+                    if (pieceId !== slotId) {
+                      allCorrect = false;
+                    }
+                  });
+
+                  if (allCorrect) {
+                    // Puzzle completed correctly
+                    feedbackContainer.className = "feedback correct";
+                    feedbackContainer.textContent =
+                      "Great job! You completed the puzzle!";
+                    score += 50;
+                    scoreValue.textContent = score;
+
+                    nextButton.textContent = "Finish";
+                    nextButton.disabled = false;
+                    nextButton.style.backgroundColor = "#2e7d32";
+                    nextButton.style.cursor = "pointer";
+
+                    // Show all facts
+                    document
+                      .querySelectorAll(".puzzle-fact")
+                      .forEach((fact) => {
+                        fact.style.opacity = "1";
+                      });
+                  }
+                }
+              }
+            });
+          }
+
+          // Create puzzle pieces
+          const pieces = Array.from({ length: totalPieces }, (_, i) => i);
+          const shuffledPieces = [...pieces].sort(() => Math.random() - 0.5);
+
+          shuffledPieces.forEach((pieceId) => {
+            const piece = document.createElement("div");
+            piece.classList.add("puzzle-piece");
+            piece.setAttribute("data-piece-id", pieceId);
+
+            // Calculate position in the original image
+            const row = Math.floor(pieceId / levelData.gridSize.cols);
+            const col = pieceId % levelData.gridSize.cols;
+
+            // Set background image position
+            piece.style.backgroundImage = `url(${levelData.imageUrl})`;
+            piece.style.backgroundSize = `${levelData.gridSize.cols * 100}% ${
+              levelData.gridSize.rows * 100
+            }%`;
+            piece.style.backgroundPosition = `-${col * 100}% -${row * 100}%`;
+
+            puzzlePieces.appendChild(piece);
+
+            // Make pieces draggable
+            piece.setAttribute("draggable", true);
+            piece.addEventListener("dragstart", (e) => {
+              e.dataTransfer.setData("text/plain", pieceId);
+              piece.classList.add("dragging");
+            });
+            piece.addEventListener("dragend", () => {
+              piece.classList.remove("dragging");
+            });
+          });
+
+          // Add facts with initially reduced opacity
+          levelData.facts.forEach((fact) => {
+            const factItem = document.createElement("li");
+            factItem.classList.add("puzzle-fact");
+            factItem.textContent = fact;
+            factItem.style.opacity = "0.5";
+            factsList.appendChild(factItem);
+          });
         }
-        
-        // Initialize waste sorting game
-        function initWasteSortingGame(levelData) {
-            // Clear quiz container
-            const quizContainer = document.getElementById('quiz-game');
-            
-            // Create HTML structure for waste sorting game
-            let binsHTML = '';
-            levelData.bins.forEach(bin => {
-                binsHTML += `
-                    <div class="waste-bin" data-bin="${bin.name}" style="border-color: ${bin.color}">
-                        <div class="bin-header" style="background-color: ${bin.color}">
+
+        // Handle next button for puzzle game
+        nextButton.addEventListener("click", () => {
+          if (nextButton.textContent === "Finish") {
+            // Save progress and redirect to levels page
+            saveProgress(currentLevel);
+            window.location.href = "levels.html";
+          }
+        });
+      }
+
+      // Initialize waste sorting game
+      function initWasteSortingGame(levelData) {
+        // Clear quiz container
+        const quizContainer = document.getElementById("quiz-game");
+
+        // Create HTML structure for waste sorting game
+        let binsHTML = "";
+        levelData.bins.forEach((bin) => {
+          binsHTML += `
+                    <div class="waste-bin" data-bin="${
+                      bin.name
+                    }" style="border-color: ${bin.color}">
+                        <div class="bin-header" style="background-color: ${
+                          bin.color
+                        }">
                             <i class="${bin.icon}"></i>
                             <h4>${bin.name}</h4>
                         </div>
                         <div class="bin-container" id="${bin.name.toLowerCase()}-container"></div>
                     </div>
                 `;
-            });
-            
-            quizContainer.innerHTML = `
+        });
+
+        quizContainer.innerHTML = `
                 <h3>Sort the waste items into the correct bins</h3>
                 <div class="waste-instructions">
                     <p><i class="fas fa-info-circle"></i> Drag each item to its correct waste bin</p>
@@ -829,251 +987,276 @@
                 </div>
                 <div class="feedback" id="feedback-container"></div>
             `;
-            
-            // Create and add items to the pool
-            const itemsPool = document.getElementById('waste-items-pool');
-            const factsList = document.getElementById('waste-facts-list');
-            
-            // Shuffle items
-            const shuffledItems = [...levelData.items].sort(() => Math.random() - 0.5);
-            
-            // Select a subset of items for the game (to avoid too many items)
-            const gameItems = shuffledItems.slice(0, 10);
-            
-            gameItems.forEach((item, index) => {
-                const itemElement = document.createElement('div');
-                itemElement.classList.add('waste-item');
-                itemElement.setAttribute('data-item-id', index);
-                itemElement.setAttribute('data-bin', item.bin);
-                itemElement.innerHTML = `
+
+        // Create and add items to the pool
+        const itemsPool = document.getElementById("waste-items-pool");
+        const factsList = document.getElementById("waste-facts-list");
+
+        // Shuffle items
+        const shuffledItems = [...levelData.items].sort(
+          () => Math.random() - 0.5
+        );
+
+        // Select a subset of items for the game (to avoid too many items)
+        const gameItems = shuffledItems.slice(0, 10);
+
+        gameItems.forEach((item, index) => {
+          const itemElement = document.createElement("div");
+          itemElement.classList.add("waste-item");
+          itemElement.setAttribute("data-item-id", index);
+          itemElement.setAttribute("data-bin", item.bin);
+          itemElement.innerHTML = `
                     <i class="${item.image}"></i>
                     <span>${item.name}</span>
                 `;
-                itemsPool.appendChild(itemElement);
-                
-                // Make items draggable
-                itemElement.setAttribute('draggable', true);
-                itemElement.addEventListener('dragstart', (e) => {
-                    e.dataTransfer.setData('text/plain', JSON.stringify({
-                        id: index,
-                        bin: item.bin
-                    }));
-                    itemElement.classList.add('dragging');
-                });
-                itemElement.addEventListener('dragend', () => {
-                    itemElement.classList.remove('dragging');
-                });
-            });
-            
-            // Make bin containers droppable
-            levelData.bins.forEach(bin => {
-                const container = document.getElementById(`${bin.name.toLowerCase()}-container`);
-                
-                container.addEventListener('dragover', (e) => {
-                    e.preventDefault();
-                    container.classList.add('dragover');
-                });
-                
-                container.addEventListener('dragleave', () => {
-                    container.classList.remove('dragover');
-                });
-                
-                container.addEventListener('drop', (e) => {
-                    e.preventDefault();
-                    container.classList.remove('dragover');
-                    
-                    const data = JSON.parse(e.dataTransfer.getData('text/plain'));
-                    const itemElement = document.querySelector(`[data-item-id="${data.id}"]`);
-                    
-                    if (data.bin === bin.name) {
-                        // Correct bin
-                        container.appendChild(itemElement);
-                        itemElement.classList.add('correct-sort');
-                        itemElement.setAttribute('draggable', false);
-                        
-                        score += 10;
-                        scoreValue.textContent = score;
-                        
-                        // Show feedback
-                        feedbackContainer.className = 'feedback correct';
-                        feedbackContainer.textContent = 'Correct! This item goes in the ' + bin.name + ' bin.';
-                        setTimeout(() => {
-                            feedbackContainer.className = 'feedback';
-                        }, 2000);
-                        
-                        // Check if all items are sorted
-                        const allSorted = document.querySelectorAll('.waste-item.correct-sort').length === gameItems.length;
-                        if (allSorted) {
-                            feedbackContainer.className = 'feedback correct';
-                            feedbackContainer.textContent = 'Great job! You sorted all waste items correctly!';
-                            nextButton.textContent = "Finish";
-                            nextButton.disabled = false;
-                            nextButton.style.backgroundColor = '#2e7d32';
-                            nextButton.style.cursor = 'pointer';
-                            
-                            // Show all facts
-                            document.querySelectorAll('.waste-fact').forEach(fact => {
-                                fact.style.opacity = '1';
-                            });
-                        }
-                    } else {
-                        // Wrong bin
-                        itemElement.classList.add('wrong-sort');
-                        
-                        // Show feedback
-                        feedbackContainer.className = 'feedback incorrect';
-                        feedbackContainer.textContent = 'Not quite right. This item doesn\'t go in the ' + bin.name + ' bin.';
-                        
-                        // Remove wrong sort class after animation
-                        setTimeout(() => {
-                            itemElement.classList.remove('wrong-sort');
-                            feedbackContainer.className = 'feedback';
-                        }, 1500);
-                    }
-                });
-            });
-            
-            // Add facts with initially reduced opacity
-            levelData.facts.forEach(fact => {
-                const factItem = document.createElement('li');
-                factItem.classList.add('waste-fact');
-                factItem.textContent = fact;
-                factItem.style.opacity = '0.5';
-                factsList.appendChild(factItem);
-            });
-            
-            // Handle next button for waste sorting game
-            nextButton.addEventListener('click', () => {
-                if (nextButton.textContent === "Finish") {
-                    // Save progress and redirect to dashboard
-                    saveProgress(currentLevel);
-                    window.location.href = 'student-dashboard.html';
-                }
-            });
-        }
-        
-        // Load quiz question
-        function loadQuestion() {
-            if (currentQuestionIndex < quizQuestions.length) {
-                const question = quizQuestions[currentQuestionIndex];
-                questionText.textContent = question.question;
-                
-                // Clear options
-                optionsContainer.innerHTML = '';
-                
-                // Add options
-                question.options.forEach((option, index) => {
-                    const optionElement = document.createElement('div');
-                    optionElement.classList.add('option');
-                    optionElement.setAttribute('data-index', index);
-                    optionElement.textContent = option;
-                    optionsContainer.appendChild(optionElement);
-                    
-                    // Add click event
-                    optionElement.addEventListener('click', () => selectOption(optionElement, index));
-                });
-                
-                // Update question counter
-                questionCounter.textContent = `${currentQuestionIndex + 1}/${quizQuestions.length}`;
-                
-                // Clear feedback
-                feedbackContainer.className = 'feedback';
-                feedbackContainer.textContent = '';
-                
-                // Disable next button until an option is selected
-                nextButton.disabled = true;
-                nextButton.style.backgroundColor = '#a5d6a7';
-                nextButton.style.cursor = 'not-allowed';
-            } else {
-                // Game complete
-                questionText.textContent = "Quiz Complete!";
-                optionsContainer.innerHTML = '';
-                feedbackContainer.className = 'feedback correct';
-                feedbackContainer.textContent = `Congratulations! You scored ${score} points.`;
+          itemsPool.appendChild(itemElement);
+
+          // Make items draggable
+          itemElement.setAttribute("draggable", true);
+          itemElement.addEventListener("dragstart", (e) => {
+            e.dataTransfer.setData(
+              "text/plain",
+              JSON.stringify({
+                id: index,
+                bin: item.bin,
+              })
+            );
+            itemElement.classList.add("dragging");
+          });
+          itemElement.addEventListener("dragend", () => {
+            itemElement.classList.remove("dragging");
+          });
+        });
+
+        // Make bin containers droppable
+        levelData.bins.forEach((bin) => {
+          const container = document.getElementById(
+            `${bin.name.toLowerCase()}-container`
+          );
+
+          container.addEventListener("dragover", (e) => {
+            e.preventDefault();
+            container.classList.add("dragover");
+          });
+
+          container.addEventListener("dragleave", () => {
+            container.classList.remove("dragover");
+          });
+
+          container.addEventListener("drop", (e) => {
+            e.preventDefault();
+            container.classList.remove("dragover");
+
+            const data = JSON.parse(e.dataTransfer.getData("text/plain"));
+            const itemElement = document.querySelector(
+              `[data-item-id="${data.id}"]`
+            );
+
+            if (data.bin === bin.name) {
+              // Correct bin
+              container.appendChild(itemElement);
+              itemElement.classList.add("correct-sort");
+              itemElement.setAttribute("draggable", false);
+
+              score += 10;
+              scoreValue.textContent = score;
+
+              // Show feedback
+              feedbackContainer.className = "feedback correct";
+              feedbackContainer.textContent =
+                "Correct! This item goes in the " + bin.name + " bin.";
+              setTimeout(() => {
+                feedbackContainer.className = "feedback";
+              }, 2000);
+
+              // Check if all items are sorted
+              const allSorted =
+                document.querySelectorAll(".waste-item.correct-sort").length ===
+                gameItems.length;
+              if (allSorted) {
+                feedbackContainer.className = "feedback correct";
+                feedbackContainer.textContent =
+                  "Great job! You sorted all waste items correctly!";
                 nextButton.textContent = "Finish";
-                nextButton.removeEventListener('click', nextQuestion);
-                nextButton.addEventListener('click', () => {
-                    saveProgress();
-                    window.location.href = 'student-dashboard.html';
+                nextButton.disabled = false;
+                nextButton.style.backgroundColor = "#2e7d32";
+                nextButton.style.cursor = "pointer";
+
+                // Show all facts
+                document.querySelectorAll(".waste-fact").forEach((fact) => {
+                  fact.style.opacity = "1";
                 });
-            }
-        }
-        
-        // Select quiz option
-        function selectOption(element, index) {
-            // Remove selected class from all options
-            const options = document.querySelectorAll('.option');
-            options.forEach(option => option.classList.remove('selected'));
-            
-            // Add selected class to clicked option
-            element.classList.add('selected');
-            
-            // Check answer
-            const correctAnswer = quizQuestions[currentQuestionIndex].correctAnswer;
-            
-            if (index === correctAnswer) {
-                // Correct answer
-                element.classList.add('correct');
-                feedbackContainer.className = 'feedback correct';
-                feedbackContainer.textContent = 'Correct! Well done!';
-                score += 10;
-                scoreValue.textContent = score;
+              }
             } else {
-                // Incorrect answer
-                element.classList.add('incorrect');
-                feedbackContainer.className = 'feedback incorrect';
-                feedbackContainer.textContent = 'Incorrect. The correct answer is: ' + 
-                    quizQuestions[currentQuestionIndex].options[correctAnswer];
+              // Wrong bin
+              itemElement.classList.add("wrong-sort");
+
+              // Show feedback
+              feedbackContainer.className = "feedback incorrect";
+              feedbackContainer.textContent =
+                "Not quite right. This item doesn't go in the " +
+                bin.name +
+                " bin.";
+
+              // Remove wrong sort class after animation
+              setTimeout(() => {
+                itemElement.classList.remove("wrong-sort");
+                feedbackContainer.className = "feedback";
+              }, 1500);
             }
-            
-            // Disable all options after selection
-            options.forEach(option => {
-                option.style.pointerEvents = 'none';
-            });
-            
-            // Enable next button
-            nextButton.disabled = false;
-            nextButton.style.backgroundColor = '#2e7d32';
-            nextButton.style.cursor = 'pointer';
+          });
+        });
+
+        // Add facts with initially reduced opacity
+        levelData.facts.forEach((fact) => {
+          const factItem = document.createElement("li");
+          factItem.classList.add("waste-fact");
+          factItem.textContent = fact;
+          factItem.style.opacity = "0.5";
+          factsList.appendChild(factItem);
+        });
+
+        // Handle next button for waste sorting game
+        nextButton.addEventListener("click", () => {
+          if (nextButton.textContent === "Finish") {
+            // Save progress and redirect to dashboard
+            saveProgress(currentLevel);
+            window.location.href = "student-dashboard.html";
+          }
+        });
+      }
+
+      // Load quiz question
+      function loadQuestion() {
+        if (currentQuestionIndex < quizQuestions.length) {
+          const question = quizQuestions[currentQuestionIndex];
+          questionText.textContent = question.question;
+
+          // Clear options
+          optionsContainer.innerHTML = "";
+
+          // Add options
+          question.options.forEach((option, index) => {
+            const optionElement = document.createElement("div");
+            optionElement.classList.add("option");
+            optionElement.setAttribute("data-index", index);
+            optionElement.textContent = option;
+            optionsContainer.appendChild(optionElement);
+
+            // Add click event
+            optionElement.addEventListener("click", () =>
+              selectOption(optionElement, index)
+            );
+          });
+
+          // Update question counter
+          questionCounter.textContent = `${currentQuestionIndex + 1}/${
+            quizQuestions.length
+          }`;
+
+          // Clear feedback
+          feedbackContainer.className = "feedback";
+          feedbackContainer.textContent = "";
+
+          // Disable next button until an option is selected
+          nextButton.disabled = true;
+          nextButton.style.backgroundColor = "#a5d6a7";
+          nextButton.style.cursor = "not-allowed";
+        } else {
+          // Game complete
+          questionText.textContent = "Quiz Complete!";
+          optionsContainer.innerHTML = "";
+          feedbackContainer.className = "feedback correct";
+          feedbackContainer.textContent = `Congratulations! You scored ${score} points.`;
+          nextButton.textContent = "Finish";
+          nextButton.removeEventListener("click", nextQuestion);
+          nextButton.addEventListener("click", () => {
+            saveProgress();
+            window.location.href = "student-dashboard.html";
+          });
         }
-        
-        // Move to next question
-        function nextQuestion() {
-            currentQuestionIndex++;
-            loadQuestion();
+      }
+
+      // Select quiz option
+      function selectOption(element, index) {
+        // Remove selected class from all options
+        const options = document.querySelectorAll(".option");
+        options.forEach((option) => option.classList.remove("selected"));
+
+        // Add selected class to clicked option
+        element.classList.add("selected");
+
+        // Check answer
+        const correctAnswer = quizQuestions[currentQuestionIndex].correctAnswer;
+
+        if (index === correctAnswer) {
+          // Correct answer
+          element.classList.add("correct");
+          feedbackContainer.className = "feedback correct";
+          feedbackContainer.textContent = "Correct! Well done!";
+          score += 10;
+          scoreValue.textContent = score;
+        } else {
+          // Incorrect answer
+          element.classList.add("incorrect");
+          feedbackContainer.className = "feedback incorrect";
+          feedbackContainer.textContent =
+            "Incorrect. The correct answer is: " +
+            quizQuestions[currentQuestionIndex].options[correctAnswer];
         }
-        
-        // Setup event listeners
-        function setupEventListeners() {
-            nextButton.addEventListener('click', nextQuestion);
-            
-            backButton.addEventListener('click', () => {
-                window.location.href = 'student-dashboard.html';
-            });
-        }
-        
-        // Save progress to localStorage
-        function saveProgress() {
-            // Get existing progress or initialize new
-            const studentProgress = JSON.parse(localStorage.getItem('studentProgress')) || {};
-            
-            // Update progress for current level
-            studentProgress[currentLevel] = {
-                completed: true,
-                score: score,
-                timestamp: new Date().toISOString()
-            };
-            
-            // Save back to localStorage
-            localStorage.setItem('studentProgress', JSON.stringify(studentProgress));
-        }
-        
-        // Initialize the game when page loads
-        window.addEventListener('DOMContentLoaded', initGame);
-        
-        // Add CSS for matching game
-        const styleElement = document.createElement('style');
-        styleElement.textContent = `
+
+        // Disable all options after selection
+        options.forEach((option) => {
+          option.style.pointerEvents = "none";
+        });
+
+        // Enable next button
+        nextButton.disabled = false;
+        nextButton.style.backgroundColor = "#2e7d32";
+        nextButton.style.cursor = "pointer";
+      }
+
+      // Move to next question
+      function nextQuestion() {
+        currentQuestionIndex++;
+        loadQuestion();
+      }
+
+      // Setup event listeners
+      function setupEventListeners() {
+        nextButton.addEventListener("click", nextQuestion);
+
+        backButton.addEventListener("click", () => {
+          window.location.href = "student-dashboard.html";
+        });
+      }
+
+      // Save progress to localStorage
+      function saveProgress() {
+        // Get existing progress or initialize new
+        const studentProgress =
+          JSON.parse(localStorage.getItem("studentProgress")) || {};
+
+        // Update progress for current level
+        studentProgress[currentLevel] = {
+          completed: true,
+          score: score,
+          timestamp: new Date().toISOString(),
+        };
+
+        // Save back to localStorage
+        localStorage.setItem(
+          "studentProgress",
+          JSON.stringify(studentProgress)
+        );
+      }
+
+      // Initialize the game when page loads
+      window.addEventListener("DOMContentLoaded", initGame);
+
+      // Add CSS for matching game
+      const styleElement = document.createElement("style");
+      styleElement.textContent = `
             .matching-instructions {
                 background-color: #fff8e1;
                 border-left: 4px solid #ffd54f;
@@ -1186,7 +1369,7 @@
                 cursor: default;
             }
         `;
-        document.head.appendChild(styleElement);
+      document.head.appendChild(styleElement);
     </script>
-</body>
+  </body>
 </html>

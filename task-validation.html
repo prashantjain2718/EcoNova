@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Validation - EcoNova</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>EcoNova</h2>
+                <p id="user-role">Teacher Dashboard</p>
+            </div>
+            <div class="sidebar-menu">
+                <h3>Navigation</h3>
+                <ul id="nav-menu">
+                    <li><a href="teacher-dashboard.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="task-validation.html" class="active"><i class="fas fa-tasks"></i> Task Validation</a></li>
+                    <li><a href="reports.html"><i class="fas fa-chart-bar"></i> Reports</a></li>
+                    <li><a href="teacher-profile.html"><i class="fas fa-user"></i> Profile</a></li>
+                    <li><a href="index.html" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <div class="main-content">
+            <div class="dashboard-header">
+                <div class="welcome-message">
+                    <h2>Task Validation</h2>
+                    <p>Review and validate student task submissions</p>
+                </div>
+            </div>
+
+            <div class="task-validation-container">
+                <!-- Task Validation Section -->
+                <section id="task-validation" class="task-validation-section">
+                    <div class="section-header">
+                        <h2>Task Validation</h2>
+                        <p>Review and validate student-submitted real-world environmental tasks</p>
+                    </div>
+                    
+                    <div class="task-submissions">
+                        <div class="submission-card">
+                            <div class="submission-header">
+                                <div class="student-info">
+                                    <div class="student-avatar">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <div class="student-details">
+                                        <h3>Alex Johnson</h3>
+                                        <span class="submission-date">Submitted: May 15, 2023</span>
+                                    </div>
+                                </div>
+                                <div class="task-badge">
+                                    <i class="fas fa-seedling"></i>
+                                    <span>Plant a Tree</span>
+                                </div>
+                            </div>
+                            <div class="submission-content">
+                                <div class="submission-description">
+                                    <h4>Student Description:</h4>
+                                    <p>I planted a maple tree in our community garden during the weekend cleanup event. I worked with the garden coordinator to find the right spot and learned about proper planting techniques.</p>
+                                </div>
+                                <div class="submission-image">
+                                    <img src="https://placehold.co/600x400?text=Tree+Planting+Photo" alt="Task submission photo">
+                                </div>
+                            </div>
+                            <div class="submission-actions">
+                                <button class="approve-btn"><i class="fas fa-check"></i> Approve (50 points)</button>
+                                <button class="reject-btn"><i class="fas fa-times"></i> Request More Info</button>
+                            </div>
+                        </div>
+                    
+                        <div class="submission-card">
+                            <div class="submission-header">
+                                <div class="student-info">
+                                    <div class="student-avatar">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <div class="student-details">
+                                        <h3>Jamie Smith</h3>
+                                        <span class="submission-date">Submitted: May 14, 2023</span>
+                                    </div>
+                                </div>
+                                <div class="task-badge">
+                                    <i class="fas fa-recycle"></i>
+                                    <span>Organize Recycling</span>
+                                </div>
+                            </div>
+                            <div class="submission-content">
+                                <div class="submission-description">
+                                    <h4>Student Description:</h4>
+                                    <p>I set up a recycling system at home with separate bins for paper, plastic, and glass. I also created labels with information about what can and cannot be recycled in each category.</p>
+                                </div>
+                                <div class="submission-image">
+                                    <img src="https://placehold.co/600x400?text=Recycling+System+Photo" alt="Task submission photo">
+                                </div>
+                            </div>
+                            <div class="submission-actions">
+                                <button class="approve-btn"><i class="fas fa-check"></i> Approve (30 points)</button>
+                                <button class="reject-btn"><i class="fas fa-times"></i> Request More Info</button>
+                            </div>
+                        </div>
+                    
+                        <div class="submission-card">
+                            <div class="submission-header">
+                                <div class="student-info">
+                                    <div class="student-avatar">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <div class="student-details">
+                                        <h3>Taylor Wilson</h3>
+                                        <span class="submission-date">Submitted: May 13, 2023</span>
+                                    </div>
+                                </div>
+                                <div class="task-badge">
+                                    <i class="fas fa-trash-alt"></i>
+                                    <span>Community Clean-up</span>
+                                </div>
+                            </div>
+                            <div class="submission-content">
+                                <div class="submission-description">
+                                    <h4>Student Description:</h4>
+                                    <p>I participated in the beach clean-up event last weekend. Our group collected over 20 bags of trash, including a lot of plastic waste. I focused on documenting the types of waste we found to help with future prevention efforts.</p>
+                                </div>
+                                <div class="submission-image">
+                                    <img src="https://placehold.co/600x400?text=Beach+Cleanup+Photo" alt="Task submission photo">
+                                </div>
+                            </div>
+                            <div class="submission-actions">
+                                <button class="approve-btn"><i class="fas fa-check"></i> Approve (40 points)</button>
+                                <button class="reject-btn"><i class="fas fa-times"></i> Request More Info</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- Student Report Modal -->
+    <div class="student-modal" id="student-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Student Report: <span id="modal-student-name">Demo Student</span></h3>
+                <button class="close-modal" id="close-modal">&times;</button>
+            </div>
+            
+            <div class="student-stats">
+                <div class="stat-card">
+                    <div class="value" id="modal-current-level">3</div>
+                    <div class="label">Current Level</div>
+                </div>
+                <div class="stat-card">
+                    <div class="value" id="modal-completion">15%</div>
+                    <div class="label">Completion</div>
+                </div>
+                <div class="stat-card">
+                    <div class="value" id="modal-points">120</div>
+                    <div class="label">Points Earned</div>
+                </div>
+                <div class="stat-card">
+                    <div class="value" id="modal-badges">2</div>
+                </div>
+            </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script>
+        // Highlight active navigation link
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('#nav-menu a');
+            navLinks.forEach(link => {
+                if (link.href === window.location.href) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

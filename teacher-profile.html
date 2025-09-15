@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile - EcoNova</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .profile-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            padding: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #757575;
+            position: relative;
+        }
+        
+        .edit-avatar {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background-color: #4caf50;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 3px solid white;
+        }
+        
+        .profile-info {
+            flex: 1;
+        }
+        
+        .profile-name {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #2e7d32;
+        }
+        
+        .profile-role {
+            font-size: 1rem;
+            color: #757575;
+            margin-bottom: 15px;
+        }
+        
+        .profile-stats {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .stat-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: #e8f5e9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4caf50;
+        }
+        
+        .stat-value {
+            font-weight: bold;
+            color: #424242;
+        }
+        
+        .stat-label {
+            color: #757575;
+            font-size: 0.9rem;
+        }
+        
+        .profile-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .profile-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        
+        .edit-profile-btn {
+            background-color: #4caf50;
+            color: white;
+        }
+        
+        .edit-profile-btn:hover {
+            background-color: #388e3c;
+        }
+        
+        .change-password-btn {
+            background-color: #f5f5f5;
+            color: #424242;
+        }
+        
+        .change-password-btn:hover {
+            background-color: #e0e0e0;
+        }
+        
+        .profile-sections {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
+        }
+        
+        .profile-section {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+        
+        .profile-section h3 {
+            color: #2e7d32;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .info-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+        }
+        
+        .info-label {
+            width: 120px;
+            font-weight: 500;
+            color: #757575;
+        }
+        
+        .info-value {
+            flex: 1;
+            color: #424242;
+        }
+        
+        .badge-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 15px;
+        }
+        
+        .badge-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .badge-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #e8f5e9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4caf50;
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+        
+        .badge-name {
+            font-size: 0.9rem;
+            color: #424242;
+            font-weight: 500;
+        }
+        
+        .badge-date {
+            font-size: 0.8rem;
+            color: #757575;
+        }
+        
+        .recent-activity {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .activity-item {
+            display: flex;
+            gap: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #e8f5e9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4caf50;
+            flex-shrink: 0;
+        }
+        
+        .activity-content {
+            flex: 1;
+        }
+        
+        .activity-title {
+            font-weight: 500;
+            color: #424242;
+            margin-bottom: 5px;
+        }
+        
+        .activity-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #757575;
+            font-size: 0.9rem;
+        }
+        
+        .edit-profile-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .edit-profile-modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background-color: white;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .modal-header h3 {
+            margin: 0;
+            color: #2e7d32;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #757575;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #424242;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .cancel-btn {
+            background-color: #f5f5f5;
+            color: #424242;
+        }
+        
+        .cancel-btn:hover {
+            background-color: #e0e0e0;
+        }
+        
+        .save-btn {
+            background-color: #4caf50;
+            color: white;
+        }
+        
+        .save-btn:hover {
+            background-color: #388e3c;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>EcoNova</h2>
+                <p id="user-role">Dashboard</p>
+            </div>
+            <div class="sidebar-menu">
+                <h3>Navigation</h3>
+                <ul id="nav-menu">
+                    <li><a href="teacher-dashboard.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="task-validation.html"><i class="fas fa-tasks"></i> Task Validation</a></li>
+                    <li><a href="reports.html"><i class="fas fa-chart-bar"></i> Reports</a></li>
+                    <li><a href="teacher-profile.html" class="active"><i class="fas fa-user"></i> Profile</a></li>
+                    <li><a href="index.html" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                 </ul>
+            </div>
+        </aside>
+
+        <div class="main-content">
+            <div class="dashboard-header">
+                <div class="welcome-message">
+                    <h2>Your Profile</h2>
+                    <p>Manage your account information and settings</p>
+                </div>
+            </div>
+
+            <div class="profile-container">
+                <div class="profile-header">
+                    <div class="profile-avatar">
+                        <i class="fas fa-user"></i>
+                        <div class="edit-avatar">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                    </div>
+                    <div class="profile-info">
+                        <div class="profile-name" id="user-name">John Doe</div>
+                        <div class="profile-role" id="display-role">Teacher</div>
+                        <div class="profile-stats">
+                            <!-- <div class="stat-item">
+                                <div class="stat-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div>
+                                    <div class="stat-value" id="students-value">30</div>
+                                    <div class="stat-label">Students</div>
+                                </div>
+                            </div> -->
+                            <div class="stat-item">
+                                <div class="stat-icon">
+                                    <i class="fas fa-tasks"></i>
+                                </div>
+                                <div>
+                                    <div class="stat-value" id="tasks-assigned-value">15</div>
+                                    <div class="stat-label">Tasks Assigned</div>
+                                </div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-icon">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div>
+                                    <div class="stat-value" id="tasks-reviewed-value">10</div>
+                                    <div class="stat-label">Tasks Reviewed</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="profile-actions">
+                            <button class="profile-btn edit-profile-btn" id="edit-profile-btn">
+                                <i class="fas fa-edit"></i> Edit Profile
+                            </button>
+                            <button class="profile-btn change-password-btn">
+                                <i class="fas fa-key"></i> Change Password
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-sections">
+                    <div class="profile-section">
+                        <h3>Personal Information</h3>
+                        <div class="info-list">
+                            <div class="info-item">
+                                <div class="info-label">Email</div>
+                                <div class="info-value" id="user-email">john.doe@example.com</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Joined</div>
+                                <div class="info-value" id="join-date">January 15, 2023</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">School</div>
+                                <div class="info-value" id="user-school">Greenwood High</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Subjects</div>
+                                <div class="info-value">Environmental Science, Biology</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="profile-section">
+                        <h3>Recent Activity</h3>
+                        <div class="recent-activity" id="activity-list">
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-chalkboard-teacher"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <div class="activity-title">Assigned "Waste Management" Task to Class 5A</div>
+                                    <div class="activity-meta">
+                                        <span>3 days ago</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <div class="activity-title">Reviewed "Recycling Project" from Student A</div>
+                                    <div class="activity-meta">
+                                        <span>1 week ago</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <div class="activity-title">New Student Enrolled: Jane Doe</div>
+                                    <div class="activity-meta">
+                                        <span>2 weeks ago</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-section">
+                    <h3>Classes & Students</h3>
+                    <div class="info-list">
+                        <div class="info-item">
+                            <div class="info-label">Class 5A</div>
+                            <div class="info-value">25 Students</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Class 5B</div>
+                            <div class="info-value">28 Students</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Profile Modal -->
+    <div class="edit-profile-modal" id="edit-profile-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Edit Profile</h3>
+                <button class="close-modal" id="close-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="profile-form">
+                <div class="form-group">
+                    <label for="edit-name">Full Name</label>
+                    <input type="text" id="edit-name" value="John Doe">
+                </div>
+                <div class="form-group">
+                    <label for="edit-email">Email Address</label>
+                    <input type="email" id="edit-email" value="john.doe@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="edit-bio">Bio</label>
+                    <textarea id="edit-bio" placeholder="Tell us about yourself">I'm passionate about environmental education and fostering young minds.</textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="profile-btn cancel-btn" id="cancel-edit">
+                        Cancel
+                    </button>
+                    <button type="submit" class="profile-btn save-btn">
+                        Save Changes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script>
+        // Determine user role from URL or localStorage
+        const userRole = localStorage.getItem('userRole') || 'teacher'; // Default to teacher for this page
+        const isTeacher = userRole === 'teacher';
+        
+        // Update UI based on role
+        document.getElementById('user-role').textContent = 'Teacher Dashboard';
+        document.getElementById('display-role').textContent = 'Teacher';
+        
+        // Populate navigation menu based on role
+        const navMenu = document.getElementById('nav-menu');
+        if (isTeacher) {
+            navMenu.innerHTML = `
+                 nav id="nav-menu">
+                    <li><a href="teacher-dashboard.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="task-validation.html"><i class="fas fa-tasks"></i> Task Validation</a></li>
+                    <li><a href="reports.html"><i class="fas fa-chart-bar"></i> Reports</a></li>
+                    <li><a href="teacher-profile.html" class="active"><i class="fas fa-user"></i> Profile</a></li>
+                    <li><a href="index.html" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                 </ul>
+            `;
+        } else {
+            // This page is specifically for teachers, so non-teachers should be redirected or shown an error.
+            // For now, we'll just show a minimal student nav if somehow a student lands here.
+            navMenu.innerHTML = `
+                <li><a href="student-dashboard.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="achievements.html"><i class="fas fa-trophy"></i> Achievements</a></li>
+                <li><a href="profile.html"><i class="fas fa-user"></i> Profile</a></li>
+                <li><a href="index.html" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            `;
+        }
+
+        // Placeholder for dynamic content loading
+        document.addEventListener('DOMContentLoaded', () => {
+            // Fetch teacher-specific data and populate the profile fields
+            document.getElementById('user-name').textContent = "Teacher Name"; // Placeholder for dynamic teacher name
+            document.getElementById('user-email').textContent = "teacher.email@econova.com"; // Placeholder for dynamic teacher email
+            document.getElementById('join-date').textContent = "August 20, 2022";
+            document.getElementById('students-value').textContent = "30";
+            document.getElementById('tasks-assigned-value').textContent = "15";
+            document.getElementById('tasks-reviewed-value').textContent = "10";
+            document.getElementById('user-school').textContent = "Greenwood High";
+
+            // Edit profile modal functionality
+            const editProfileModal = document.getElementById('edit-profile-modal');
+            const editProfileBtn = document.getElementById('edit-profile-btn');
+            const closeModalBtn = document.getElementById('close-modal');
+            const cancelEditBtn = document.getElementById('cancel-edit');
+            const profileForm = document.getElementById('profile-form');
+
+            editProfileBtn.addEventListener('click', () => {
+                editProfileModal.classList.add('active');
+                // Populate form with current profile data
+                document.getElementById('edit-name').value = document.getElementById('user-name').textContent;
+                document.getElementById('edit-email').value = document.getElementById('user-email').textContent;
+                // Assuming a bio field exists in the teacher profile
+                document.getElementById('edit-bio').value = "I'm passionate about environmental education and fostering young minds.";
+            });
+
+            closeModalBtn.addEventListener('click', () => {
+                editProfileModal.classList.remove('active');
+            });
+
+            cancelEditBtn.addEventListener('click', () => {
+                editProfileModal.classList.remove('active');
+            });
+
+            profileForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                // Handle form submission (e.g., send data to backend)
+                console.log("Profile updated!");
+                editProfileModal.classList.remove('active');
+                // Update displayed profile info
+                document.getElementById('user-name').textContent = document.getElementById('edit-name').value;
+                document.getElementById('user-email').textContent = document.getElementById('edit-email').value;
+            });
+        });
+    </script>
+</body>
+</html>

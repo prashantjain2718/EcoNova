@@ -100,10 +100,33 @@
     </footer>
 
     <script src="js/script.js"></script>
+    <script src="js/api.js"></script>
     <script>
-        // Initialize real-time validation for registration form
         document.addEventListener('DOMContentLoaded', function() {
-            setupRealTimeValidation('registerForm');
+            setupRealTimeValidation('registrationForm');
+
+            const registrationForm = document.getElementById('registrationForm');
+            registrationForm.addEventListener('submit', async function(event) {
+                event.preventDefault();
+
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                const role = document.getElementById('role').value;
+                const errorMessageDiv = registrationForm.querySelector('.form-group .error-message');
+
+                try {
+                    const response = await API.register(name, email, password, role);
+                    if (response.token) {
+                        // Redirect to dashboard or home page upon successful registration
+                        window.location.href = 'dashboard.html'; 
+                    } else {
+                        errorMessageDiv.textContent = response.message || 'Registration failed. Please try again.';
+                    }
+                } catch (error) {
+                    errorMessageDiv.textContent = error.message || 'An error occurred during registration.';
+                }
+            });
         });
     </script>
 </body>

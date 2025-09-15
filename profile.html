@@ -590,7 +590,6 @@
         if (isTeacher) {
             navMenu.innerHTML = `
                 <li><a href="teacher-dashboard.html"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="#students"><i class="fas fa-users"></i> Students</a></li>
                 <li><a href="game.html"><i class="fas fa-gamepad"></i> Games</a></li>
                 <li><a href="#task-validation"><i class="fas fa-tasks"></i> Task Validation</a></li>
                 <li><a href="reports.html"><i class="fas fa-chart-bar"></i> Reports</a></li>
@@ -599,11 +598,11 @@
             `;
         } else {
             navMenu.innerHTML = `
-                <li><a href="student-dashboard.html"><i class="fas fa-home"></i> Dashboard</a></li>
-                <li><a href="levels.html"><i class="fas fa-layer-group"></i> Game Levels</a></li>
-                <li><a href="#real-world-tasks"><i class="fas fa-tasks"></i> Real-World Tasks</a></li>
-                <li><a href="achievements.html"><i class="fas fa-trophy"></i> Achievements</a></li>
+                <li><a href="student-dashboard.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="levels.html"><i class="fas fa-gamepad"></i> Game Levels</a></li>
+                <li><a href="real-world-tasks.html"><i class="fas fa-tasks"></i> Real-World Tasks</a></li>
                 <li><a href="progress.html"><i class="fas fa-chart-line"></i> Progress</a></li>
+                <li><a href="achievements.html"><i class="fas fa-trophy"></i> Achievements</a></li>
                 <li><a href="profile.html" class="active"><i class="fas fa-user"></i> Profile</a></li>
                 <li><a href="index.html" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
             `;

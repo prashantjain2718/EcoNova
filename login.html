@@ -199,6 +199,7 @@
     </style>
 
     <script src="js/script.js"></script>
+    <script src="js/api.js"></script>
     <script>
         // Add demo users to localStorage when the page loads
         document.addEventListener('DOMContentLoaded', () => {
@@ -243,6 +244,27 @@
         // Initialize real-time validation for login form
         document.addEventListener('DOMContentLoaded', function() {
             setupRealTimeValidation('loginForm');
+            
+            const loginForm = document.getElementById('loginForm');
+            loginForm.addEventListener('submit', async function(event) {
+                event.preventDefault();
+
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                const errorMessageDiv = loginForm.querySelector('.form-group .error-message');
+
+                try {
+                    const response = await API.login(email, password);
+                    if (response.token) {
+                        // Redirect to dashboard or home page upon successful login
+                        window.location.href = 'dashboard.html'; 
+                    } else {
+                        errorMessageDiv.textContent = response.message || 'Login failed. Please check your credentials.';
+                    }
+                } catch (error) {
+                    errorMessageDiv.textContent = error.message || 'An error occurred during login.';
+                }
+            });
             
             // Quick login functionality
             document.getElementById('studentQuickLogin').addEventListener('click', function() {
