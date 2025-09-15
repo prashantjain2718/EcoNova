@@ -302,6 +302,41 @@
                     { term: "Geothermal", definition: "Power generated from Earth's internal heat" },
                     { term: "Biomass", definition: "Power generated from organic materials" }
                 ]
+            },
+            {
+                id: 7,
+                name: "Level 7: Waste Management",
+                description: "Learn about proper waste sorting and recycling",
+                type: "waste-sorting",
+                bins: [
+                    { name: "Recycling", color: "#2196F3", icon: "fas fa-recycle" },
+                    { name: "Compost", color: "#4CAF50", icon: "fas fa-leaf" },
+                    { name: "Landfill", color: "#607D8B", icon: "fas fa-trash" }
+                ],
+                items: [
+                    { name: "Plastic Bottle", bin: "Recycling", image: "fas fa-wine-bottle" },
+                    { name: "Newspaper", bin: "Recycling", image: "fas fa-newspaper" },
+                    { name: "Aluminum Can", bin: "Recycling", image: "fas fa-box" },
+                    { name: "Glass Jar", bin: "Recycling", image: "fas fa-glass-whiskey" },
+                    { name: "Cardboard Box", bin: "Recycling", image: "fas fa-box-open" },
+                    { name: "Banana Peel", bin: "Compost", image: "fas fa-apple-alt" },
+                    { name: "Coffee Grounds", bin: "Compost", image: "fas fa-mug-hot" },
+                    { name: "Egg Shells", bin: "Compost", image: "fas fa-egg" },
+                    { name: "Vegetable Scraps", bin: "Compost", image: "fas fa-carrot" },
+                    { name: "Yard Trimmings", bin: "Compost", image: "fas fa-leaf" },
+                    { name: "Styrofoam", bin: "Landfill", image: "fas fa-box" },
+                    { name: "Plastic Bags", bin: "Landfill", image: "fas fa-shopping-bag" },
+                    { name: "Candy Wrappers", bin: "Landfill", image: "fas fa-candy-cane" },
+                    { name: "Diapers", bin: "Landfill", image: "fas fa-baby" },
+                    { name: "Broken Ceramics", bin: "Landfill", image: "fas fa-wine-glass-alt" }
+                ],
+                facts: [
+                    "Recycling one aluminum can saves enough energy to run a TV for three hours",
+                    "The average person generates about 4.5 pounds of trash every day",
+                    "About 75% of American waste is recyclable, but we only recycle about 30%",
+                    "Composting can reduce the amount of waste sent to landfills by up to 30%",
+                    "It takes a plastic bottle 450 years to decompose in a landfill"
+                ]
             }
         ];
         
@@ -347,6 +382,8 @@
                 initSortingGame(levelData.categories, levelData.items);
             } else if (gameType === 'puzzle') {
                 initPuzzleGame(levelData);
+            } else if (gameType === 'waste-sorting') {
+                initWasteSortingGame(levelData);
             }
             
             setupEventListeners();
@@ -754,6 +791,163 @@
                     // Save progress and redirect to levels page
                     saveProgress(currentLevel);
                     window.location.href = 'levels.html';
+                }
+            });
+        }
+        
+        // Initialize waste sorting game
+        function initWasteSortingGame(levelData) {
+            // Clear quiz container
+            const quizContainer = document.getElementById('quiz-game');
+            
+            // Create HTML structure for waste sorting game
+            let binsHTML = '';
+            levelData.bins.forEach(bin => {
+                binsHTML += `
+                    <div class="waste-bin" data-bin="${bin.name}" style="border-color: ${bin.color}">
+                        <div class="bin-header" style="background-color: ${bin.color}">
+                            <i class="${bin.icon}"></i>
+                            <h4>${bin.name}</h4>
+                        </div>
+                        <div class="bin-container" id="${bin.name.toLowerCase()}-container"></div>
+                    </div>
+                `;
+            });
+            
+            quizContainer.innerHTML = `
+                <h3>Sort the waste items into the correct bins</h3>
+                <div class="waste-instructions">
+                    <p><i class="fas fa-info-circle"></i> Drag each item to its correct waste bin</p>
+                </div>
+                <div class="waste-items-pool" id="waste-items-pool"></div>
+                <div class="waste-bins-container">
+                    ${binsHTML}
+                </div>
+                <div class="waste-facts">
+                    <h4>Did you know?</h4>
+                    <ul id="waste-facts-list"></ul>
+                </div>
+                <div class="feedback" id="feedback-container"></div>
+            `;
+            
+            // Create and add items to the pool
+            const itemsPool = document.getElementById('waste-items-pool');
+            const factsList = document.getElementById('waste-facts-list');
+            
+            // Shuffle items
+            const shuffledItems = [...levelData.items].sort(() => Math.random() - 0.5);
+            
+            // Select a subset of items for the game (to avoid too many items)
+            const gameItems = shuffledItems.slice(0, 10);
+            
+            gameItems.forEach((item, index) => {
+                const itemElement = document.createElement('div');
+                itemElement.classList.add('waste-item');
+                itemElement.setAttribute('data-item-id', index);
+                itemElement.setAttribute('data-bin', item.bin);
+                itemElement.innerHTML = `
+                    <i class="${item.image}"></i>
+                    <span>${item.name}</span>
+                `;
+                itemsPool.appendChild(itemElement);
+                
+                // Make items draggable
+                itemElement.setAttribute('draggable', true);
+                itemElement.addEventListener('dragstart', (e) => {
+                    e.dataTransfer.setData('text/plain', JSON.stringify({
+                        id: index,
+                        bin: item.bin
+                    }));
+                    itemElement.classList.add('dragging');
+                });
+                itemElement.addEventListener('dragend', () => {
+                    itemElement.classList.remove('dragging');
+                });
+            });
+            
+            // Make bin containers droppable
+            levelData.bins.forEach(bin => {
+                const container = document.getElementById(`${bin.name.toLowerCase()}-container`);
+                
+                container.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    container.classList.add('dragover');
+                });
+                
+                container.addEventListener('dragleave', () => {
+                    container.classList.remove('dragover');
+                });
+                
+                container.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    container.classList.remove('dragover');
+                    
+                    const data = JSON.parse(e.dataTransfer.getData('text/plain'));
+                    const itemElement = document.querySelector(`[data-item-id="${data.id}"]`);
+                    
+                    if (data.bin === bin.name) {
+                        // Correct bin
+                        container.appendChild(itemElement);
+                        itemElement.classList.add('correct-sort');
+                        itemElement.setAttribute('draggable', false);
+                        
+                        score += 10;
+                        scoreValue.textContent = score;
+                        
+                        // Show feedback
+                        feedbackContainer.className = 'feedback correct';
+                        feedbackContainer.textContent = 'Correct! This item goes in the ' + bin.name + ' bin.';
+                        setTimeout(() => {
+                            feedbackContainer.className = 'feedback';
+                        }, 2000);
+                        
+                        // Check if all items are sorted
+                        const allSorted = document.querySelectorAll('.waste-item.correct-sort').length === gameItems.length;
+                        if (allSorted) {
+                            feedbackContainer.className = 'feedback correct';
+                            feedbackContainer.textContent = 'Great job! You sorted all waste items correctly!';
+                            nextButton.textContent = "Finish";
+                            nextButton.disabled = false;
+                            nextButton.style.backgroundColor = '#2e7d32';
+                            nextButton.style.cursor = 'pointer';
+                            
+                            // Show all facts
+                            document.querySelectorAll('.waste-fact').forEach(fact => {
+                                fact.style.opacity = '1';
+                            });
+                        }
+                    } else {
+                        // Wrong bin
+                        itemElement.classList.add('wrong-sort');
+                        
+                        // Show feedback
+                        feedbackContainer.className = 'feedback incorrect';
+                        feedbackContainer.textContent = 'Not quite right. This item doesn\'t go in the ' + bin.name + ' bin.';
+                        
+                        // Remove wrong sort class after animation
+                        setTimeout(() => {
+                            itemElement.classList.remove('wrong-sort');
+                            feedbackContainer.className = 'feedback';
+                        }, 1500);
+                    }
+                });
+            });
+            
+            // Add facts with initially reduced opacity
+            levelData.facts.forEach(fact => {
+                const factItem = document.createElement('li');
+                factItem.classList.add('waste-fact');
+                factItem.textContent = fact;
+                factItem.style.opacity = '0.5';
+                factsList.appendChild(factItem);
+            });
+            
+            // Handle next button for waste sorting game
+            nextButton.addEventListener('click', () => {
+                if (nextButton.textContent === "Finish") {
+                    // Save progress and redirect to dashboard
+                    saveProgress(currentLevel);
+                    window.location.href = 'student-dashboard.html';
                 }
             });
         }

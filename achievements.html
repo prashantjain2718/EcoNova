@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Achievements - EcoNova</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .achievements-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .achievement-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .achievement-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .achievement-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+            color: #4CAF50;
+        }
+        
+        .achievement-locked .achievement-icon {
+            color: #ccc;
+        }
+        
+        .achievement-locked {
+            opacity: 0.7;
+            filter: grayscale(1);
+        }
+        
+        .achievement-progress {
+            margin-top: 10px;
+            height: 10px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .achievement-progress-bar {
+            height: 100%;
+            background-color: #4CAF50;
+            border-radius: 5px;
+        }
+        
+        .badge-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 30px;
+            justify-content: center;
+        }
+        
+        .badge {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 30px;
+            position: relative;
+        }
+        
+        .badge-locked {
+            background-color: #e0e0e0;
+            color: #999;
+        }
+        
+        .badge-info {
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            font-size: 12px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>EcoNova</h2>
+                <p>Student Dashboard</p>
+            </div>
+            <div class="sidebar-menu">
+                <h3>Navigation</h3>
+                <ul>
+                    <li><a href="student-dashboard.html"><i class="fas fa-home"></i> Dashboard</a></li>
+                    <li><a href="levels.html"><i class="fas fa-layer-group"></i> Game Levels</a></li>
+                    <li><a href="#real-world-tasks"><i class="fas fa-tasks"></i> Real-World Tasks</a></li>
+                    <li><a href="achievements.html" class="active"><i class="fas fa-trophy"></i> Achievements</a></li>
+                    <li><a href="progress.html"><i class="fas fa-chart-line"></i> Progress</a></li>
+                    <li><a href="profile.html"><i class="fas fa-user"></i> Profile</a></li>
+                    <li><a href="index.html" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <div class="main-content">
+            <div class="dashboard-header">
+                <div class="welcome-message">
+                    <h2>Your Achievements</h2>
+                    <p>Track your environmental impact and earn badges</p>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <div class="section-header">
+                    <h3>Badges</h3>
+                    <p>Collect badges by completing tasks and challenges</p>
+                </div>
+                
+                <div class="badge-container" id="badge-container">
+                    <!-- Badges will be dynamically loaded here -->
+                </div>
+            </div>
+
+            <div class="content-section">
+                <div class="section-header">
+                    <h3>Achievements</h3>
+                    <p>Your environmental milestones</p>
+                </div>
+                
+                <div class="achievements-container" id="achievements-container">
+                    <!-- Achievements will be dynamically loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script src="js/achievements.js"></script>
+</body>
+</html>

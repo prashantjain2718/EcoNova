@@ -18,11 +18,12 @@
                 <h3>Navigation</h3>
                 <ul>
                     <li><a href="student-dashboard.html" class="active"><i class="fas fa-home"></i> Dashboard</a></li>
-                    <li><a href="levels.html"><i class="fas fa-layer-group"></i> Game Levels</a></li>
-                    <li><a href="#"><i class="fas fa-trophy"></i> Achievements</a></li>
-                    <li><a href="#"><i class="fas fa-chart-line"></i> Progress</a></li>
-                    <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
-                    <li><a href="index.html" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                <li><a href="levels.html"><i class="fas fa-layer-group"></i> Game Levels</a></li>
+                <li><a href="#real-world-tasks"><i class="fas fa-tasks"></i> Real-World Tasks</a></li>
+                <li><a href="achievements.html"><i class="fas fa-trophy"></i> Achievements</a></li>
+                <li><a href="progress.html"><i class="fas fa-chart-line"></i> Progress</a></li>
+                <li><a href="profile.html"><i class="fas fa-user"></i> Profile</a></li>
+                <li><a href="index.html" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
                 </ul>
             </div>
         </aside>
@@ -198,9 +199,240 @@
                     </tbody>
                 </table>
             </section>
+
+            <section id="real-world-tasks" class="real-world-tasks-section">
+                <div class="section-header">
+                    <h2>Real-World Environmental Tasks</h2>
+                    <p>Complete these tasks in the real world and submit evidence to earn points and badges</p>
+                </div>
+                
+                <div class="tasks-grid">
+                    <div class="task-card">
+                        <div class="task-header">
+                            <div class="task-icon">
+                                <i class="fas fa-seedling"></i>
+                            </div>
+                            <div class="task-status pending">Pending</div>
+                        </div>
+                        <div class="task-content">
+                            <h3>Plant a Tree</h3>
+                            <p>Plant a tree in your neighborhood or participate in a local tree planting event.</p>
+                            <div class="task-details">
+                                <div class="task-points"><i class="fas fa-star"></i> 50 points</div>
+                                <div class="task-difficulty">Medium</div>
+                            </div>
+                            <button class="task-submit-btn" data-task-id="plant-tree">Submit Evidence</button>
+                        </div>
+                    </div>
+
+                    <div class="task-card">
+                        <div class="task-header">
+                            <div class="task-icon">
+                                <i class="fas fa-recycle"></i>
+                            </div>
+                            <div class="task-status pending">Pending</div>
+                        </div>
+                        <div class="task-content">
+                            <h3>Organize Recycling</h3>
+                            <p>Set up a recycling system at home or improve an existing one. Document the before and after.</p>
+                            <div class="task-details">
+                                <div class="task-points"><i class="fas fa-star"></i> 30 points</div>
+                                <div class="task-difficulty">Easy</div>
+                            </div>
+                            <button class="task-submit-btn" data-task-id="recycling">Submit Evidence</button>
+                        </div>
+                    </div>
+
+                    <div class="task-card">
+                        <div class="task-header">
+                            <div class="task-icon">
+                                <i class="fas fa-trash-alt"></i>
+                            </div>
+                            <div class="task-status pending">Pending</div>
+                        </div>
+                        <div class="task-content">
+                            <h3>Community Clean-up</h3>
+                            <p>Participate in or organize a clean-up event in your community. Document your contribution.</p>
+                            <div class="task-details">
+                                <div class="task-points"><i class="fas fa-star"></i> 40 points</div>
+                                <div class="task-difficulty">Medium</div>
+                            </div>
+                            <button class="task-submit-btn" data-task-id="cleanup">Submit Evidence</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Task Submission Modal -->
+            <div id="task-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close-modal">&times;</span>
+                    <h2>Submit Task Evidence</h2>
+                    <p id="modal-task-description"></p>
+                    
+                    <form id="task-submission-form">
+                        <input type="hidden" id="task-id" name="task-id">
+                        
+                        <div class="form-group">
+                            <label for="task-description">Describe what you did:</label>
+                            <textarea id="task-description" name="task-description" rows="4" required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="task-date">Date Completed:</label>
+                            <input type="date" id="task-date" name="task-date" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="task-image">Upload Photo Evidence:</label>
+                            <input type="file" id="task-image" name="task-image" accept="image/*" required>
+                            <div class="image-preview-container">
+                                <img id="image-preview" src="#" alt="Preview" style="display: none; max-width: 100%; max-height: 200px;">
+                            </div>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Submit for Verification</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 
     <script src="js/script.js"></script>
+    <script src="js/achievements.js"></script>
+    <script>
+        // Task submission functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('task-modal');
+            const closeModal = document.querySelector('.close-modal');
+            const submitButtons = document.querySelectorAll('.task-submit-btn');
+            const taskForm = document.getElementById('task-submission-form');
+            const taskIdInput = document.getElementById('task-id');
+            const modalTaskDescription = document.getElementById('modal-task-description');
+            const imageInput = document.getElementById('task-image');
+            const imagePreview = document.getElementById('image-preview');
+            
+            // Open modal when submit button is clicked
+            submitButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const taskId = this.getAttribute('data-task-id');
+                    const taskCard = this.closest('.task-card');
+                    const taskTitle = taskCard.querySelector('h3').textContent;
+                    const taskDesc = taskCard.querySelector('p').textContent;
+                    
+                    taskIdInput.value = taskId;
+                    modalTaskDescription.textContent = `Task: ${taskTitle} - ${taskDesc}`;
+                    modal.style.display = 'block';
+                });
+            });
+            
+            // Close modal when X is clicked
+            closeModal.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+            
+            // Close modal when clicking outside of it
+            window.addEventListener('click', function(event) {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+            
+            // Preview uploaded image
+            imageInput.addEventListener('change', function() {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        imagePreview.src = e.target.result;
+                        imagePreview.style.display = 'block';
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+            
+            // Handle form submission
+            taskForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // In a real application, you would upload the image to a server
+                // and store the task submission in a database
+                
+                // For demo purposes, we'll just show a success message and update the UI
+                const taskId = taskIdInput.value;
+                const taskCard = document.querySelector(`[data-task-id="${taskId}"]`).closest('.task-card');
+                const statusElement = taskCard.querySelector('.task-status');
+                
+                statusElement.className = 'task-status submitted';
+                statusElement.textContent = 'Submitted';
+                
+                // Disable the submit button
+                const submitBtn = taskCard.querySelector('.task-submit-btn');
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Submitted';
+                
+                // Close the modal
+                modal.style.display = 'none';
+                
+                // Reset the form
+                taskForm.reset();
+                imagePreview.style.display = 'none';
+                
+                // Show success message
+                alert('Your task evidence has been submitted for verification!');
+            });
+        });
+    </script>
+    
+    <!-- Add recent achievements section -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add recent achievements section to dashboard
+            const dashboardCards = document.querySelector('.dashboard-cards');
+            if (dashboardCards) {
+                const achievementsCard = document.createElement('div');
+                achievementsCard.className = 'dashboard-card';
+                achievementsCard.innerHTML = `
+                    <div class="dashboard-card-header">
+                        <h3>Recent Achievements</h3>
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <div class="dashboard-card-content" id="recent-achievements">
+                        <div class="badge-container" id="dashboard-badge-container"></div>
+                        <a href="achievements.html" class="btn btn-primary">View All Achievements</a>
+                    </div>
+                `;
+                dashboardCards.appendChild(achievementsCard);
+                
+                // Display recent badges
+                const badgeContainer = document.getElementById('dashboard-badge-container');
+                if (badgeContainer && window.AchievementSystem) {
+                    const userBadges = window.AchievementSystem.getUserBadges();
+                    // Display up to 3 most recent badges
+                    const recentBadges = userBadges.slice(-3);
+                    
+                    if (recentBadges.length > 0) {
+                        recentBadges.forEach(badgeId => {
+                            const badge = window.badgeDefinitions?.find(b => b.id === badgeId);
+                            if (badge) {
+                                const badgeElement = document.createElement('div');
+                                badgeElement.className = 'badge';
+                                badgeElement.style.backgroundColor = badge.color;
+                                badgeElement.innerHTML = `
+                                    <i class="${badge.icon}"></i>
+                                    <span class="badge-info">${badge.title}</span>
+                                `;
+                                badgeContainer.appendChild(badgeElement);
+                            }
+                        });
+                    } else {
+                        badgeContainer.innerHTML = '<p>Complete tasks to earn badges!</p>';
+                    }
+                }
+            }
+        });
+    </script>
 </body>
 </html>

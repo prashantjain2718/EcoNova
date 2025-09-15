@@ -357,7 +357,295 @@
         .filter-option:hover {
             background-color: #f5f5f5;
         }
-    </style>
+        /* Task Assignment Modal Styles */
+    .task-assignment-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.5);
+        z-index: 1000;
+        overflow-y: auto;
+    }
+    
+    .task-assignment-content {
+        background-color: white;
+        margin: 50px auto;
+        padding: 25px;
+        border-radius: 8px;
+        width: 90%;
+        max-width: 800px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        position: relative;
+    }
+    
+    .task-assignment-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #e0e0e0;
+    }
+    
+    .task-assignment-header h2 {
+        color: #2e7d32;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .task-assignment-close {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: #757575;
+    }
+    
+    .task-assignment-close:hover {
+        color: #e53935;
+    }
+    
+    .task-form-section {
+        margin-bottom: 30px;
+    }
+    
+    .task-form-section h3 {
+        color: #2e7d32;
+        margin-bottom: 15px;
+        font-size: 1.2rem;
+    }
+    
+    .task-form-row {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 15px;
+    }
+    
+    .task-form-group {
+        flex: 1;
+    }
+    
+    .task-form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: #424242;
+    }
+    
+    .task-form-group input,
+    .task-form-group select,
+    .task-form-group textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #e0e0e0;
+        border-radius: 4px;
+        font-size: 1rem;
+    }
+    
+    .task-form-group textarea {
+        min-height: 100px;
+        resize: vertical;
+    }
+    
+    .bulk-assign-toggle {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+    
+    .bulk-assign-toggle input {
+        width: auto;
+    }
+    
+    .student-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 15px;
+        margin-top: 15px;
+    }
+    
+    .student-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px;
+        border: 1px solid #e0e0e0;
+        border-radius: 4px;
+    }
+    
+    .student-checkbox {
+        width: auto !important;
+    }
+    
+    .assigned-tasks-section {
+        margin-top: 30px;
+    }
+    
+    .assigned-task-item {
+        background-color: #f5f5f5;
+        border-radius: 6px;
+        padding: 15px;
+        margin-bottom: 15px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .task-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .task-type {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 500;
+    }
+    
+    .task-status {
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        font-weight: 500;
+    }
+    
+    .status-assigned {
+        background-color: #2196f3;
+        color: white;
+    }
+    
+    .status-completed {
+        background-color: #4caf50;
+        color: white;
+    }
+    
+    .status-overdue {
+        background-color: #f44336;
+        color: white;
+    }
+    
+    .task-details {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .task-student {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #616161;
+    }
+    
+    .task-description {
+        padding: 8px 0;
+    }
+    
+    .task-meta {
+        display: flex;
+        gap: 15px;
+    }
+    
+    .task-points, .task-due-date {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        color: #616161;
+        font-size: 0.9rem;
+    }
+    
+    .task-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+    }
+    
+    .task-actions button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #616161;
+        font-size: 1rem;
+        padding: 5px;
+    }
+    
+    .edit-task-btn:hover {
+        color: #2196f3;
+    }
+    
+    .delete-task-btn:hover {
+        color: #f44336;
+    }
+    
+    .empty-state {
+        text-align: center;
+        padding: 30px;
+        color: #9e9e9e;
+    }
+    
+    .empty-state i {
+        font-size: 3rem;
+        margin-bottom: 15px;
+    }
+    
+    .notification {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        padding: 15px 20px;
+        border-radius: 4px;
+        background-color: white;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        transform: translateY(100px);
+        opacity: 0;
+        transition: all 0.3s ease;
+        z-index: 1100;
+    }
+    
+    .notification.show {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    
+    .notification-success {
+        border-left: 4px solid #4caf50;
+    }
+    
+    .notification-error {
+        border-left: 4px solid #f44336;
+    }
+    
+    .notification-info {
+        border-left: 4px solid #2196f3;
+    }
+    
+    .notification i {
+        font-size: 1.2rem;
+    }
+    
+    .notification-success i {
+        color: #4caf50;
+    }
+    
+    .notification-error i {
+        color: #f44336;
+    }
+    
+    .notification-info i {
+        color: #2196f3;
+    }
+</style>
 </head>
 <body>
     <div class="dashboard">
@@ -370,11 +658,12 @@
                 <h3>Navigation</h3>
                 <ul>
                     <li><a href="teacher-dashboard.html" class="active"><i class="fas fa-home"></i> Home</a></li>
-                    <li><a href="#"><i class="fas fa-users"></i> Students</a></li>
-                    <li><a href="#"><i class="fas fa-gamepad"></i> Games</a></li>
-                    <li><a href="#"><i class="fas fa-chart-bar"></i> Reports</a></li>
-                    <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
-                    <li><a href="#" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                    <li><a href="#students"><i class="fas fa-users"></i> Students</a></li>
+                    <li><a href="game.html"><i class="fas fa-gamepad"></i> Games</a></li>
+                    <li><a href="#task-validation"><i class="fas fa-tasks"></i> Task Validation</a></li>
+                    <li><a href="reports.html"><i class="fas fa-chart-bar"></i> Reports</a></li>
+                    <li><a href="profile.html"><i class="fas fa-user"></i> Profile</a></li>
+                    <li><a href="index.html" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
                 </ul>
             </div>
         </aside>
@@ -396,6 +685,17 @@
                     <div class="dashboard-card-content">
                         <div class="number">5</div>
                         <div class="label">Total Students</div>
+                    </div>
+                </div>
+                
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h3>Pending Tasks</h3>
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <div class="dashboard-card-content">
+                        <div class="number">3</div>
+                        <div class="label">Need Validation</div>
                     </div>
                 </div>
 
@@ -476,7 +776,7 @@
                             <td>Today</td>
                             <td>
                                 <button class="action-btn view-btn" data-student="demo-student">View Report</button>
-                                <button class="action-btn assign-btn">Assign</button>
+                                <button class="action-btn assign-btn" data-student="demo-student">Assign Task</button>
                             </td>
                         </tr>
                         <tr>
@@ -498,7 +798,7 @@
                             <td>Yesterday</td>
                             <td>
                                 <button class="action-btn view-btn" data-student="alex-johnson">View Report</button>
-                                <button class="action-btn assign-btn">Assign</button>
+                                <button class="action-btn assign-btn" data-student="alex-johnson">Assign Task</button>
                             </td>
                         </tr>
                         <tr>
@@ -520,7 +820,7 @@
                             <td>2 days ago</td>
                             <td>
                                 <button class="action-btn view-btn" data-student="jamie-smith">View Report</button>
-                                <button class="action-btn assign-btn">Assign</button>
+                                <button class="action-btn assign-btn" data-student="jamie-smith">Assign Task</button>
                             </td>
                         </tr>
                         <tr>
@@ -542,7 +842,7 @@
                             <td>3 days ago</td>
                             <td>
                                 <button class="action-btn view-btn" data-student="taylor-wilson">View Report</button>
-                                <button class="action-btn assign-btn">Assign</button>
+                                <button class="action-btn assign-btn" data-student="taylor-wilson">Assign Task</button>
                             </td>
                         </tr>
                         <tr>
@@ -564,11 +864,114 @@
                             <td>1 week ago</td>
                             <td>
                                 <button class="action-btn view-btn" data-student="jordan-lee">View Report</button>
-                                <button class="action-btn assign-btn">Assign</button>
+                                <button class="action-btn assign-btn" data-student="jordan-lee">Assign Task</button>
                             </td>
                         </tr>
                     </tbody>
                 </table>
+            </section>
+
+            <!-- Task Validation Section -->
+            <section id="task-validation" class="task-validation-section">
+                <div class="section-header">
+                    <h2>Task Validation</h2>
+                    <p>Review and validate student-submitted real-world environmental tasks</p>
+                </div>
+                
+                <div class="task-submissions">
+                    <div class="submission-card">
+                        <div class="submission-header">
+                            <div class="student-info">
+                                <div class="student-avatar">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="student-details">
+                                    <h3>Alex Johnson</h3>
+                                    <span class="submission-date">Submitted: May 15, 2023</span>
+                                </div>
+                            </div>
+                            <div class="task-badge">
+                                <i class="fas fa-seedling"></i>
+                                <span>Plant a Tree</span>
+                            </div>
+                        </div>
+                        <div class="submission-content">
+                            <div class="submission-description">
+                                <h4>Student Description:</h4>
+                                <p>I planted a maple tree in our community garden during the weekend cleanup event. I worked with the garden coordinator to find the right spot and learned about proper planting techniques.</p>
+                            </div>
+                            <div class="submission-image">
+                                <img src="https://placehold.co/600x400?text=Tree+Planting+Photo" alt="Task submission photo">
+                            </div>
+                        </div>
+                        <div class="submission-actions">
+                            <button class="approve-btn"><i class="fas fa-check"></i> Approve (50 points)</button>
+                            <button class="reject-btn"><i class="fas fa-times"></i> Request More Info</button>
+                        </div>
+                    </div>
+
+                    <div class="submission-card">
+                        <div class="submission-header">
+                            <div class="student-info">
+                                <div class="student-avatar">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="student-details">
+                                    <h3>Jamie Smith</h3>
+                                    <span class="submission-date">Submitted: May 14, 2023</span>
+                                </div>
+                            </div>
+                            <div class="task-badge">
+                                <i class="fas fa-recycle"></i>
+                                <span>Organize Recycling</span>
+                            </div>
+                        </div>
+                        <div class="submission-content">
+                            <div class="submission-description">
+                                <h4>Student Description:</h4>
+                                <p>I set up a recycling system at home with separate bins for paper, plastic, and glass. I also created labels with information about what can and cannot be recycled in each category.</p>
+                            </div>
+                            <div class="submission-image">
+                                <img src="https://placehold.co/600x400?text=Recycling+System+Photo" alt="Task submission photo">
+                            </div>
+                        </div>
+                        <div class="submission-actions">
+                            <button class="approve-btn"><i class="fas fa-check"></i> Approve (30 points)</button>
+                            <button class="reject-btn"><i class="fas fa-times"></i> Request More Info</button>
+                        </div>
+                    </div>
+
+                    <div class="submission-card">
+                        <div class="submission-header">
+                            <div class="student-info">
+                                <div class="student-avatar">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="student-details">
+                                    <h3>Taylor Wilson</h3>
+                                    <span class="submission-date">Submitted: May 13, 2023</span>
+                                </div>
+                            </div>
+                            <div class="task-badge">
+                                <i class="fas fa-trash-alt"></i>
+                                <span>Community Clean-up</span>
+                            </div>
+                        </div>
+                        <div class="submission-content">
+                            <div class="submission-description">
+                                <h4>Student Description:</h4>
+                                <p>I participated in the beach clean-up event last weekend. Our group collected over 20 bags of trash, including a lot of plastic waste. I focused on documenting the types of waste we found to help with future prevention efforts.</p>
+                            </div>
+                            <div class="submission-image">
+                                <img src="https://placehold.co/600x400?text=Beach+Cleanup+Photo" alt="Task submission photo">
+                            </div>
+                        </div>
+                        <div class="submission-actions">
+                            <button class="approve-btn"><i class="fas fa-check"></i> Approve (40 points)</button>
+                            <button class="reject-btn"><i class="fas fa-times"></i> Request More Info</button>
+                        </div>
+                    </div>
+                </div>
             </section>
         </div>
     </div>
@@ -739,9 +1142,11 @@
             }
         };
         
-        // Initialize the dashboard
-        function initDashboard() {
+        // Initialize the dashboard components
+        function setupDashboard() {
             setupEventListeners();
+            setupTaskValidation();
+            setupTaskAssignment();
         }
         
         // Setup event listeners
@@ -751,6 +1156,15 @@
                 btn.addEventListener('click', () => {
                     const studentId = btn.getAttribute('data-student');
                     openStudentModal(studentId);
+                });
+            });
+            
+            // Task assignment buttons
+            const assignButtons = document.querySelectorAll('.assign-btn');
+            assignButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const studentId = btn.getAttribute('data-student');
+                    openTaskAssignmentModal(studentId);
                 });
             });
             
@@ -794,6 +1208,86 @@
                     studentModal.classList.remove('active');
                 }
             });
+        }
+        
+        // Setup task validation functionality
+        function setupTaskValidation() {
+            // Get all approve and reject buttons
+            const approveButtons = document.querySelectorAll('.approve-btn');
+            const rejectButtons = document.querySelectorAll('.reject-btn');
+            
+            // Add event listeners to approve buttons
+            approveButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const submissionCard = this.closest('.submission-card');
+                    const studentName = submissionCard.querySelector('.student-details h3').textContent;
+                    const taskName = submissionCard.querySelector('.task-badge span').textContent;
+                    const pointsText = this.textContent.match(/\((\d+) points\)/)[1];
+                    
+                    // Show confirmation dialog
+                    if (confirm(`Approve ${taskName} submission by ${studentName} and award ${pointsText} points?`)) {
+                        // In a real application, you would update the database
+                        // For demo purposes, we'll just update the UI
+                        submissionCard.style.opacity = '0.6';
+                        submissionCard.style.pointerEvents = 'none';
+                        
+                        // Change button text
+                        this.innerHTML = '<i class="fas fa-check-circle"></i> Approved';
+                        this.disabled = true;
+                        
+                        // Disable the reject button
+                        const rejectBtn = submissionCard.querySelector('.reject-btn');
+                        rejectBtn.disabled = true;
+                        
+                        // Update pending tasks count
+                        updatePendingTasksCount(-1);
+                        
+                        // Show success message
+                        alert(`Task approved! ${pointsText} points awarded to ${studentName}.`);
+                    }
+                });
+            });
+            
+            // Add event listeners to reject buttons
+            rejectButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const submissionCard = this.closest('.submission-card');
+                    const studentName = submissionCard.querySelector('.student-details h3').textContent;
+                    const taskName = submissionCard.querySelector('.task-badge span').textContent;
+                    
+                    // Show confirmation dialog with textarea for feedback
+                    const feedback = prompt(`Enter feedback for ${studentName}'s ${taskName} submission:`);
+                    
+                    if (feedback) {
+                        // In a real application, you would update the database and send notification
+                        // For demo purposes, we'll just update the UI
+                        submissionCard.style.opacity = '0.6';
+                        submissionCard.style.pointerEvents = 'none';
+                        
+                        // Change button text
+                        this.innerHTML = '<i class="fas fa-info-circle"></i> Feedback Sent';
+                        this.disabled = true;
+                        
+                        // Disable the approve button
+                        const approveBtn = submissionCard.querySelector('.approve-btn');
+                        approveBtn.disabled = true;
+                        
+                        // Update pending tasks count
+                        updatePendingTasksCount(-1);
+                        
+                        // Show success message
+                        alert(`Feedback sent to ${studentName} for the ${taskName} submission.`);
+                    }
+                });
+            });
+        }
+        
+        // Update the pending tasks count
+        function updatePendingTasksCount(change) {
+            const pendingTasksElement = document.querySelector('.dashboard-card:nth-child(2) .number');
+            let currentCount = parseInt(pendingTasksElement.textContent);
+            currentCount += change;
+            pendingTasksElement.textContent = currentCount > 0 ? currentCount : 0;
         }
         
         // Open student modal with report data
@@ -909,7 +1403,168 @@
         }
         
         // Initialize the dashboard when page loads
-        window.addEventListener('DOMContentLoaded', initDashboard);
+        // Setup task assignment functionality
+        function setupTaskAssignment() {
+            const taskAssignmentModal = document.getElementById('task-assignment-modal');
+            const closeTaskModal = document.getElementById('task-assignment-close');
+            
+            // Close task assignment modal
+            if (closeTaskModal) {
+                closeTaskModal.addEventListener('click', () => {
+                    taskAssignmentModal.style.display = 'none';
+                });
+            }
+            
+            // Close task assignment modal when clicking outside
+            window.addEventListener('click', (event) => {
+                if (event.target === taskAssignmentModal) {
+                    taskAssignmentModal.style.display = 'none';
+                }
+            });
+            
+            // Set current date as minimum for due date input
+            const taskDueDateInput = document.getElementById('task-due-date');
+            if (taskDueDateInput) {
+                const today = new Date().toISOString().split('T')[0];
+                taskDueDateInput.setAttribute('min', today);
+                taskDueDateInput.value = today;
+            }
+        }
+        
+        // Open task assignment modal and pre-select student
+        function openTaskAssignmentModal(studentId) {
+            const taskAssignmentModal = document.getElementById('task-assignment-modal');
+            if (!taskAssignmentModal) return;
+            
+            // Display the modal
+            taskAssignmentModal.style.display = 'block';
+            
+            // Pre-select the student in the dropdown
+            const studentSelect = document.getElementById('student-select');
+            if (studentSelect && studentId) {
+                const option = studentSelect.querySelector(`option[value="${studentId}"]`);
+                if (option) {
+                    studentSelect.value = studentId;
+                }
+            }
+            
+            // Check the student in bulk assignment mode
+            const studentCheckbox = document.querySelector(`.student-checkbox[value="${studentId}"]`);
+            if (studentCheckbox) {
+                studentCheckbox.checked = true;
+            }
+        }
+        
+        window.addEventListener('DOMContentLoaded', setupDashboard);
     </script>
+    <!-- Task Assignment Modal -->
+    <div class="task-assignment-modal" id="task-assignment-modal">
+        <div class="task-assignment-content">
+            <div class="task-assignment-header">
+                <h2><i class="fas fa-tasks"></i> Assign Environmental Task</h2>
+                <button class="task-assignment-close" id="task-assignment-close">&times;</button>
+            </div>
+            
+            <form id="task-assign-form">
+                <div class="task-form-section">
+                    <h3>Task Details</h3>
+                    
+                    <div class="bulk-assign-toggle">
+                        <input type="checkbox" id="bulk-assign-toggle">
+                        <label for="bulk-assign-toggle">Assign to multiple students</label>
+                    </div>
+                    
+                    <div id="single-assign-section">
+                        <div class="task-form-group">
+                            <label for="student-select">Select Student</label>
+                            <select id="student-select" required>
+                                <option value="">Choose a student...</option>
+                                <option value="demo-student">Demo Student</option>
+                                <option value="alex-johnson">Alex Johnson</option>
+                                <option value="emma-wilson">Emma Wilson</option>
+                                <option value="noah-garcia">Noah Garcia</option>
+                                <option value="olivia-martinez">Olivia Martinez</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div id="bulk-assign-section" style="display: none;">
+                        <div class="task-form-group">
+                            <label for="student-filter">Filter Students</label>
+                            <input type="text" id="student-filter" placeholder="Type to filter students...">
+                        </div>
+                        
+                        <div class="student-list">
+                            <div class="student-item">
+                                <input type="checkbox" class="student-checkbox" value="demo-student">
+                                <span class="student-name">Demo Student</span>
+                            </div>
+                            <div class="student-item">
+                                <input type="checkbox" class="student-checkbox" value="alex-johnson">
+                                <span class="student-name">Alex Johnson</span>
+                            </div>
+                            <div class="student-item">
+                                <input type="checkbox" class="student-checkbox" value="emma-wilson">
+                                <span class="student-name">Emma Wilson</span>
+                            </div>
+                            <div class="student-item">
+                                <input type="checkbox" class="student-checkbox" value="noah-garcia">
+                                <span class="student-name">Noah Garcia</span>
+                            </div>
+                            <div class="student-item">
+                                <input type="checkbox" class="student-checkbox" value="olivia-martinez">
+                                <span class="student-name">Olivia Martinez</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="task-form-row">
+                        <div class="task-form-group">
+                            <label for="task-type-select">Task Type</label>
+                            <select id="task-type-select" required>
+                                <option value="">Select task type...</option>
+                                <option value="plant-tree">Plant a Tree</option>
+                                <option value="recycling">Recycling</option>
+                                <option value="cleanup">Clean-up</option>
+                                <option value="water-conservation">Water Conservation</option>
+                                <option value="energy-saving">Energy Saving</option>
+                                <option value="composting">Composting</option>
+                                <option value="awareness">Awareness Campaign</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="task-form-group">
+                            <label for="task-points">Points</label>
+                            <input type="number" id="task-points" min="1" max="100" value="30" required>
+                        </div>
+                        
+                        <div class="task-form-group">
+                            <label for="task-due-date">Due Date</label>
+                            <input type="date" id="task-due-date" required>
+                        </div>
+                    </div>
+                    
+                    <div class="task-form-group">
+                        <label for="task-description">Task Description</label>
+                        <textarea id="task-description" placeholder="Describe the environmental task..." required></textarea>
+                    </div>
+                </div>
+                
+                <div class="task-form-actions">
+                    <button type="submit" class="btn primary-btn" id="assign-task-btn">Assign Task</button>
+                </div>
+            </form>
+            
+            <div class="assigned-tasks-section">
+                <h3>Assigned Tasks</h3>
+                <div id="assigned-tasks-list">
+                    <!-- Assigned tasks will be displayed here -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/task-assignment.js"></script>
 </body>
 </html>

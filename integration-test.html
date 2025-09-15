@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoNova - Integration Test</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        .test-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .test-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .test-header h1 {
+            margin: 0;
+            color: #2c3e50;
+        }
+        
+        .test-controls {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .test-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 6px;
+            background-color: #f9f9f9;
+        }
+        
+        .test-section h2 {
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            font-size: 1.2rem;
+        }
+        
+        .test-status {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        
+        .status-not-started {
+            background-color: #95a5a6;
+        }
+        
+        .status-running {
+            background-color: #3498db;
+            animation: pulse 1.5s infinite;
+        }
+        
+        .status-passed {
+            background-color: #2ecc71;
+        }
+        
+        .status-failed {
+            background-color: #e74c3c;
+        }
+        
+        .status-skipped {
+            background-color: #f39c12;
+        }
+        
+        .test-details {
+            margin-top: 10px;
+        }
+        
+        .test-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .test-item:last-child {
+            border-bottom: none;
+        }
+        
+        .test-name {
+            font-weight: 500;
+        }
+        
+        .test-result {
+            font-weight: 500;
+        }
+        
+        .result-passed {
+            color: #2ecc71;
+        }
+        
+        .result-failed {
+            color: #e74c3c;
+        }
+        
+        .result-skipped {
+            color: #f39c12;
+        }
+        
+        .test-message {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            margin-top: 4px;
+        }
+        
+        .test-error {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #ffecec;
+            border-left: 4px solid #e74c3c;
+            color: #e74c3c;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+        
+        .test-summary {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 6px;
+            background-color: #f9f9f9;
+            text-align: center;
+        }
+        
+        .summary-passed {
+            background-color: #d5f5e3;
+            color: #27ae60;
+        }
+        
+        .summary-failed {
+            background-color: #fadbd8;
+            color: #c0392b;
+        }
+        
+        .summary-running {
+            background-color: #d6eaf8;
+            color: #2980b9;
+        }
+        
+        @keyframes pulse {
+            0% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        
+        .console-output {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            border-radius: 6px;
+            font-family: monospace;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .console-output p {
+            margin: 5px 0;
+            line-height: 1.4;
+        }
+        
+        .console-info {
+            color: #3498db;
+        }
+        
+        .console-success {
+            color: #2ecc71;
+        }
+        
+        .console-warning {
+            color: #f39c12;
+        }
+        
+        .console-error {
+            color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="images/Forest-01.svg" alt="EcoNova Logo">
+                <h1>EcoNova Integration Tests</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="teacher-dashboard.html">Teacher Dashboard</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <div class="test-container" id="integration-test-container">
+            <div class="test-header">
+                <h1>Integration Test</h1>
+                <div class="test-controls">
+                    <button id="run-tests-btn" class="btn btn-primary">
+                        <i class="fas fa-play"></i> Run Tests
+                    </button>
+                    <button id="clear-console-btn" class="btn btn-secondary">
+                        <i class="fas fa-trash"></i> Clear Console
+                    </button>
+                </div>
+            </div>
+            
+            <div id="test-sections-container">
+                <!-- Test sections will be dynamically added here -->
+            </div>
+            
+            <div id="test-summary" class="test-summary">
+                <h2>Test not started</h2>
+                <p>Click "Run Tests" to begin integration testing</p>
+            </div>
+            
+            <div class="console-output" id="console-output">
+                <p>Console output will appear here...</p>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <p>&copy; 2023 EcoNova. All rights reserved.</p>
+    </footer>
+    
+    <!-- Load Scripts -->
+    <script src="js/integration-test.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Override console methods to capture output
+            const consoleOutput = document.getElementById('console-output');
+            const originalConsole = {
+                log: console.log,
+                info: console.info,
+                warn: console.warn,
+                error: console.error
+            };
+            
+            // Clear console button
+            document.getElementById('clear-console-btn').addEventListener('click', () => {
+                consoleOutput.innerHTML = '<p>Console cleared...</p>';
+            });
+            
+            // Function to add message to console output
+            function addConsoleMessage(type, args) {
+                const message = Array.from(args).map(arg => {
+                    if (typeof arg === 'object') {
+                        return JSON.stringify(arg, null, 2);
+                    }
+                    return arg;
+                }).join(' ');
+                
+                const p = document.createElement('p');
+                p.classList.add(`console-${type}`);
+                p.textContent = message;
+                consoleOutput.appendChild(p);
+                consoleOutput.scrollTop = consoleOutput.scrollHeight;
+            }
+            
+            // Override console methods
+            console.log = function() {
+                addConsoleMessage('info', arguments);
+                originalConsole.log.apply(console, arguments);
+            };
+            
+            console.info = function() {
+                addConsoleMessage('info', arguments);
+                originalConsole.info.apply(console, arguments);
+            };
+            
+            console.warn = function() {
+                addConsoleMessage('warning', arguments);
+                originalConsole.warn.apply(console, arguments);
+            };
+            
+            console.error = function() {
+                addConsoleMessage('error', arguments);
+                originalConsole.error.apply(console, arguments);
+            };
+            
+            // Run tests button
+            document.getElementById('run-tests-btn').addEventListener('click', async () => {
+                // Clear previous results
+                document.getElementById('test-sections-container').innerHTML = '';
+                document.getElementById('test-summary').innerHTML = '<h2>Running tests...</h2><p>Please wait while tests are running</p>';
+                document.getElementById('test-summary').className = 'test-summary summary-running';
+                consoleOutput.innerHTML = '<p>Starting integration tests...</p>';
+                
+                // Initialize test sections
+                const testSections = [
+                    { id: 'database', name: 'Database Connection' },
+                    { id: 'api', name: 'API Functionality' },
+                    { id: 'realWorldTasks', name: 'Real-World Tasks' },
+                    { id: 'aiValidation', name: 'AI Validation' },
+                    { id: 'taskAssignment', name: 'Task Assignment' }
+                ];
+                
+                // Create test sections
+                testSections.forEach(section => {
+                    const sectionElement = document.createElement('div');
+                    sectionElement.id = `test-section-${section.id}`;
+                    sectionElement.className = 'test-section';
+                    sectionElement.innerHTML = `
+                        <h2>
+                            <span class="test-status status-not-started" id="status-${section.id}"></span>
+                            ${section.name}
+                        </h2>
+                        <div class="test-details" id="details-${section.id}">
+                            <div class="test-item">
+                                <span class="test-name">Status</span>
+                                <span class="test-result" id="result-${section.id}">Not started</span>
+                            </div>
+                        </div>
+                    `;
+                    document.getElementById('test-sections-container').appendChild(sectionElement);
+                });
+                
+                // Run tests
+                try {
+                    await window.IntegrationTest.initialize();
+                    updateTestResults();
+                } catch (error) {
+                    console.error('Error running tests:', error);
+                    document.getElementById('test-summary').innerHTML = `
+                        <h2>Tests failed</h2>
+                        <p>An error occurred while running tests</p>
+                        <div class="test-error">${error.message}</div>
+                    `;
+                    document.getElementById('test-summary').className = 'test-summary summary-failed';
+                }
+            });
+            
+            // Update test results in the UI
+            function updateTestResults() {
+                const testResults = window.IntegrationTest.getTestResults();
+                console.log('Test results:', testResults);
+                
+                // Update summary
+                const summaryElement = document.getElementById('test-summary');
+                if (testResults.status === 'completed') {
+                    let allPassed = true;
+                    
+                    // Check if all tests passed
+                    for (const [testName, result] of Object.entries(testResults.results)) {
+                        if (result.status !== 'passed') {
+                            allPassed = false;
+                            break;
+                        }
+                    }
+                    
+                    if (allPassed) {
+                        summaryElement.innerHTML = `
+                            <h2>All tests passed!</h2>
+                            <p>The integration test completed successfully</p>
+                        `;
+                        summaryElement.className = 'test-summary summary-passed';
+                    } else {
+                        summaryElement.innerHTML = `
+                            <h2>Some tests failed</h2>
+                            <p>Check the details for more information</p>
+                        `;
+                        summaryElement.className = 'test-summary summary-failed';
+                    }
+                } else if (testResults.status === 'failed') {
+                    summaryElement.innerHTML = `
+                        <h2>Tests failed</h2>
+                        <p>The integration test encountered errors</p>
+                    `;
+                    summaryElement.className = 'test-summary summary-failed';
+                }
+                
+                // Update individual test sections
+                for (const [testName, result] of Object.entries(testResults.results)) {
+                    const statusElement = document.getElementById(`status-${testName}`);
+                    const resultElement = document.getElementById(`result-${testName}`);
+                    const detailsElement = document.getElementById(`details-${testName}`);
+                    
+                    if (statusElement && resultElement && detailsElement) {
+                        // Update status
+                        statusElement.className = `test-status status-${result.status}`;
+                        resultElement.textContent = result.status.charAt(0).toUpperCase() + result.status.slice(1);
+                        resultElement.className = `test-result result-${result.status}`;
+                        
+                        // Clear previous details
+                        detailsElement.innerHTML = '';
+                        
+                        // Add test details
+                        if (result.tests) {
+                            for (const [subTestName, subResult] of Object.entries(result.tests)) {
+                                const testItem = document.createElement('div');
+                                testItem.className = 'test-item';
+                                testItem.innerHTML = `
+                                    <span class="test-name">${formatTestName(subTestName)}</span>
+                                    <span class="test-result result-${subResult.status}">${subResult.status.charAt(0).toUpperCase() + subResult.status.slice(1)}</span>
+                                `;
+                                detailsElement.appendChild(testItem);
+                                
+                                if (subResult.message) {
+                                    const messageElement = document.createElement('div');
+                                    messageElement.className = 'test-message';
+                                    messageElement.textContent = subResult.message;
+                                    detailsElement.appendChild(messageElement);
+                                }
+                            }
+                        }
+                        
+                        // Add error if present
+                        if (result.error) {
+                            const errorElement = document.createElement('div');
+                            errorElement.className = 'test-error';
+                            errorElement.textContent = result.error;
+                            detailsElement.appendChild(errorElement);
+                        }
+                    }
+                }
+            }
+            
+            // Format test name for display
+            function formatTestName(name) {
+                return name
+                    .replace(/([A-Z])/g, ' $1')
+                    .replace(/^./, str => str.toUpperCase());
+            }
+        });
+    </script>
+</body>
+</html>
